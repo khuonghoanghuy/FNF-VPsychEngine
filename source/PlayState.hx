@@ -83,19 +83,19 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
-		['Tệ!', 0.2], //From 0% to 19%
-		['Shit', 0.4], //From 20% to 39%
-		['Dở', 0.5], //From 40% to 49%
-		['Bruh', 0.6], //From 50% to 59%
-		['Ờ', 0.69], //From 60% to 68%
+		['Tệ!', 0.2], //Từ 0% đến 19%
+		['Shit', 0.4], //Từ 20% đến 39%
+		['Dở', 0.5], //Từ 40% đến 49%
+		['Bruh', 0.6], //Từ 50% đến 59%
+		['Ờ', 0.69], //Từ 60% đến 68%
 		['Được', 0.7], //69%
-		['Tốt', 0.8], //From 70% to 79%
-		['Ờ, được', 0.9], //From 80% to 89%
-		['Tuyệt!', 1], //From 90% to 99%
-		['Hoàn Hảo!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		['Tốt', 0.8], //Từ 70% đến 79%
+		['Ờ, được', 0.9], //Từ 80% đến 89%
+		['Tuyệt Vời!', 1], //Từ 90% đến 99%
+		['Hoàn Hảo!!', 1] //Giá trị của cái này thực sự không được sử dụng, vì mức cao nhất luôn luôn "1"
 	];
 
-	//event variables
+	//biến var cho event
 	private var isCameraOnForcedPos:Bool = false;
 
 	#if (haxe >= "4.0.0")
@@ -201,7 +201,7 @@ class PlayState extends MusicBeatState
 	public static var changedDifficulty:Bool = false;
 	public static var chartingMode:Bool = false;
 
-	//Gameplay settings
+	// Cài đặt trò chơi các kiểu
 	public var healthGain:Float = 1;
 	public var healthLoss:Float = 1;
 	public var instakillOnMiss:Bool = false;
@@ -279,6 +279,7 @@ class PlayState extends MusicBeatState
 	public var defaultCamZoom:Float = 1.05;
 
 	// how big to stretch the pixel art assets
+	// kéo dài phần cam ở stage Pixel
 	public static var daPixelZoom:Float = 6;
 	private var singAnimations:Array<String> = ['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'];
 
@@ -297,7 +298,7 @@ class PlayState extends MusicBeatState
 	var detailsPausedText:String = "";
 	#end
 
-	//Achievement shit
+	// Thành tựu
 	var keysPressed:Array<Bool> = [];
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
@@ -308,11 +309,11 @@ class PlayState extends MusicBeatState
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
 
-	// Debug buttons
+	// nút Debug
 	private var debugKeysChart:Array<FlxKey>;
 	private var debugKeysCharacter:Array<FlxKey>;
 
-	// Less laggy controls
+	// Điều khiển ít lag hơn
 	private var keysArray:Array<Dynamic>;
 	private var controlArray:Array<String>;
 
@@ -1029,7 +1030,7 @@ class PlayState extends MusicBeatState
 
 		var showTime:Bool = (ClientPrefs.timeBarType != 'Disabled');
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 19, 400, "", 32);
-		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font("fvh_vhs.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
@@ -1147,14 +1148,14 @@ class PlayState extends MusicBeatState
 		reloadHealthBarColors();
 
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("fvh_vhs.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt.setFormat(Paths.font("fvh_vhs.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
