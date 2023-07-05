@@ -1,8 +1,13 @@
 # FNF - VPsych Engine
 A vietnamese version of FNF Psych Engine come with some custom only on VPsych Engine!
 
-## How to install to build?
-Pretty easy now:
+## Installation:
+You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
 
-1. Install `hmm` by using `haxelib install hmm`
-2. Now open the folder contains `VPsych Engine Source` and run `haxelib run hmm install`
+open up a Command Prompt/PowerShell or Terminal, type `haxelib install hmm`
+
+after it finishes, simply type `haxelib run hmm install` in order to install all the needed libraries for *Psych Engine!*
+
+# Features
+- All Psych Engine Features
+- Vietnamese version of This Psych Engine

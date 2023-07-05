@@ -1,11 +1,14 @@
 {
   "dependencies": [
     {
-      "name": "discord_rpc",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/Aidan63/linc_discord-rpc"
+      "name": "lime",
+      "type": "haxelib",
+      "version": "8.0.1"
+    },
+    {
+      "name": "openfl",
+      "type": "haxelib",
+      "version": "9.2.1"
     },
     {
       "name": "flixel",
@@ -28,29 +31,12 @@
       "version": "2.5.0"
     },
     {
-      "name": "hscript",
-      "type": "haxelib",
-      "version": null
-    },
-    {
-      "name": "hscript-ex",
-      "type": "git",
-      "dir": null,
-      "ref": "master",
-      "url": "https://github.com/ianharrigan/hscript-ex"
-    },
-    {
-      "name": "hxCodec",
-      "type": "haxelib",
-      "version": "3.0.1"
-    },
-    {
       "name": "hxcpp",
       "type": "haxelib",
       "version": null
     },
     {
-      "name": "hxcpp-debug-server",
+      "name": "tjson",
       "type": "haxelib",
       "version": null
     },
@@ -60,9 +46,33 @@
       "version": null
     },
     {
-      "name": "lime",
+      "name": "hxCodec",
       "type": "haxelib",
-      "version": "8.0.1"
+      "version": "2.5.1"
+    },
+    {
+      "name": "hscript",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "hxcpp-debug-server",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "discord_rpc",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
+    },
+    {
+      "name": "hscript-ex",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/ianharrigan/hscript-ex"
     },
     {
       "name": "linc_luajit",
@@ -70,16 +80,6 @@
       "dir": null,
       "ref": "master",
       "url": "https://github.com/nebulazorua/linc_luajit"
-    },
-    {
-      "name": "openfl",
-      "type": "haxelib",
-      "version": "9.2.1"
-    },
-    {
-      "name": "tjson",
-      "type": "haxelib",
-      "version": null
     }
   ]
 }
