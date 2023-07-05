@@ -11,22 +11,22 @@ using StringTools;
 
 class Achievements {
 	public static var achievementsStuff:Array<Dynamic> = [ //Name, Description, Achievement save tag, Hidden achievement
-		["Freaky on a Friday Night",	"Play on a Friday... Night.",						'friday_night_play',	 true],
-		["She Calls Me Daddy Too",		"Beat Week 1 on Hard with no Misses.",				'week1_nomiss',			false],
-		["No More Tricks",				"Beat Week 2 on Hard with no Misses.",				'week2_nomiss',			false],
-		["Call Me The Hitman",			"Beat Week 3 on Hard with no Misses.",				'week3_nomiss',			false],
-		["Lady Killer",					"Beat Week 4 on Hard with no Misses.",				'week4_nomiss',			false],
-		["Missless Christmas",			"Beat Week 5 on Hard with no Misses.",				'week5_nomiss',			false],
-		["Highscore!!",					"Beat Week 6 on Hard with no Misses.",				'week6_nomiss',			false],
-		["God Effing Damn It!",			"Beat Week 7 on Hard with no Misses.",				'week7_nomiss',			false],
-		["What a Funkin' Disaster!",	"Complete a Song with a rating lower than 20%.",	'ur_bad',				false],
-		["Perfectionist",				"Complete a Song with a rating of 100%.",			'ur_good',				false],
-		["Roadkill Enthusiast",			"Watch the Henchmen die over 100 times.",			'roadkill_enthusiast',	false],
-		["Oversinging Much...?",		"Hold down a note for 10 seconds.",					'oversinging',			false],
-		["Hyperactive",					"Finish a Song without going Idle.",				'hype',					false],
-		["Just the Two of Us",			"Finish a Song pressing only two keys.",			'two_keys',				false],
-		["Toaster Gamer",				"Have you tried to run the game on a toaster?",		'toastie',				false],
-		["Debugger",					"Beat the \"Test\" Stage from the Chart Editor.",	'debugger',				 true]
+		["Freaky on a Friday Night",	"Chơi Friday... Night.",						'friday_night_play',	 true],
+		["She Calls Me Daddy Too",		"Thắng Week 1 ở mức Hard với không Miss.",				'week1_nomiss',			false],
+		["No More Tricks",				"Thắng Week 2 ở mức Hard với không Miss.",				'week2_nomiss',			false],
+		["Call Me The Hitman",			"Thắng Week 3 ở mức Hard với không Miss.",				'week3_nomiss',			false],
+		["Lady Killer",					"Thắng Week 4 ở mức Hard với không Miss.",				'week4_nomiss',			false],
+		["Missless Christmas",			"Thắng Week 5 ở mức Hard với không Miss.",				'week5_nomiss',			false],
+		["Highscore!!",					"Thắng Week 6 ở mức Hard với không Miss.",				'week6_nomiss',			false],
+		["God Effing Damn It!",			"Thắng Week 7 ở mức Hard với không Miss.",				'week7_nomiss',			false],
+		["What a Funkin' Disaster!",	"Hoàn thành một bài hát với độ chính xác thấp hơn 20%.",	'ur_bad',				false],
+		["Perfectionist",				"Hoàn thành một bài hát với độ chính xác lên đến 100%.",			'ur_good',				false],
+		["Roadkill Enthusiast",			"Xem Henchmen chết 100 lần.",			'roadkill_enthusiast',	false],
+		["Oversinging Much...?",		"Giữ một note trong 10 giây.",					'oversinging',			false],
+		["Hyperactive",					"Kết thúc một bài hát mà không làm idle.",				'hype',					false],
+		["Just the Two of Us",			"Kết thúc một bài hát chỉ nhấn hai phím.",			'two_keys',				false],
+		["Toaster Gamer",				"Bạn đã bao giờ chạy game trên máy nướng bánh mì chưa?",		'toastie',				false],
+		["Debugger",					"Thắng bài \"Test\" trên Chart Editor.",	'debugger',				 true]
 	];
 	public static var achievementsMap:Map<String, Bool> = new Map<String, Bool>();
 

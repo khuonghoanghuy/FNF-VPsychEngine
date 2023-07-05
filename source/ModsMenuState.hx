@@ -80,7 +80,7 @@ class ModsMenuState extends MusicBeatState
 		add(bg);
 		bg.screenCenter();
 
-		noModsTxt = new FlxText(0, 0, FlxG.width, "NO MODS INSTALLED\nPRESS BACK TO EXIT AND INSTALL A MOD", 48);
+		noModsTxt = new FlxText(0, 0, FlxG.width, "KHÔNG CÓ BẢN MODS NÀO\nNHẤN BACK ĐỂ THOÁT VÀ CÀI ĐẶT MOD", 48);
 		if(FlxG.random.bool(0.1)) noModsTxt.text += '\nBITCH.'; //meanie
 		noModsTxt.setFormat(Paths.font("fvh_vhs.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		noModsTxt.scrollFactor.set();
@@ -200,7 +200,7 @@ class ModsMenuState extends MusicBeatState
 
 
 		startX -= 190;
-		buttonDisableAll = new FlxButton(startX, 0, "DISABLE ALL", function() {
+		buttonDisableAll = new FlxButton(startX, 0, "VÔ HIỆU HÓA TẤT CẢ", function() {
 			for (i in modsList)
 			{
 				i[1] = false;
@@ -226,7 +226,7 @@ class ModsMenuState extends MusicBeatState
 		visibleWhenHasMods.push(buttonDisableAll);
 
 		startX -= 190;
-		buttonEnableAll = new FlxButton(startX, 0, "ENABLE ALL", function() {
+		buttonEnableAll = new FlxButton(startX, 0, "CHO PHÉP TẤT CẢ", function() {
 			for (i in modsList)
 			{
 				i[1] = true;
@@ -404,12 +404,12 @@ class ModsMenuState extends MusicBeatState
 	{
 		if (modsList[curSelected][1])
 		{
-			buttonToggle.label.text = 'ON';
+			buttonToggle.label.text = 'BẬT';
 			buttonToggle.color = FlxColor.GREEN;
 		}
 		else
 		{
-			buttonToggle.label.text = 'OFF';
+			buttonToggle.label.text = 'TẮT';
 			buttonToggle.color = FlxColor.RED;
 		}
 	}
@@ -563,7 +563,7 @@ class ModsMenuState extends MusicBeatState
 				selector.sprTracker = mod.alphabet;
 				descriptionTxt.text = mod.description;
 				if (mod.restart){//finna make it to where if nothing changed then it won't reset
-					descriptionTxt.text += " (This Mod will restart the game!)";
+					descriptionTxt.text += " (Bản mods này sẽ khởi động lại game!)";
 				}
 
 				// correct layering
@@ -722,7 +722,7 @@ class ModMetadata
 	{
 		this.folder = folder;
 		this.name = folder;
-		this.description = "No description provided.";
+		this.description = "Không có mô tả nào được nêu ra.";
 		this.color = ModsMenuState.defaultColor;
 		this.restart = false;
 
@@ -752,7 +752,7 @@ class ModMetadata
 				}
 				if(description == 'Description')
 				{
-					this.description = "No description provided.";
+					this.description = "Không có mô tả nào được nêu ra.";
 				}
 				if(colors != null && colors.length > 2)
 				{
