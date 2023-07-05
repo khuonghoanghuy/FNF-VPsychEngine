@@ -50,6 +50,8 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+                optionShit = CoolUtil.coolTexFile(Paths.txt("mainMenu"));
+		
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
