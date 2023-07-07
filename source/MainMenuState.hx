@@ -32,15 +32,7 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
-	var optionShit:Array<String> = [
-		'story_mode',
-		'freeplay',
-		#if MODS_ALLOWED 'mods', #end
-		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		#if !switch 'donate', #end
-		'options'
-	];
+	var optionShit:Array<String> = [];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -49,6 +41,8 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+                optionShit = CoolUtil.coolTexFile(Paths.txt("mainMenu"));
+		
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
