@@ -1,0 +1,145 @@
+package editors;
+
+import flixel.FlxG;
+import haxe.Json;
+#if desktop
+import ModsMenuState.ModMetadata;
+#end
+import flixel.FlxSprite;
+import flixel.addons.display.FlxGridOverlay;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.system.FlxSound;
+import openfl.utils.Assets;
+import flixel.addons.ui.FlxInputText;
+import flixel.addons.ui.FlxUI9SliceSprite;
+import flixel.addons.ui.FlxUI;
+import flixel.addons.ui.FlxUICheckBox;
+import flixel.addons.ui.FlxUIInputText;
+import flixel.addons.ui.FlxUINumericStepper;
+import flixel.addons.ui.FlxUITabMenu;
+import flixel.ui.FlxButton;
+import openfl.net.FileReference;
+import openfl.events.Event;
+import openfl.events.IOErrorEvent;
+import flash.net.FileFilter;
+import lime.system.Clipboard;
+
+using StringTools;
+
+class ModsEditorState extends MusicBeatState
+{
+    var _file:FileReference;
+    var saveButton:FlxButton;
+
+    // color stuff
+    var r:Int = 0;
+    var g:Int = 0;
+    var b:Int = 0;
+
+    // data json stuff
+    var name:String = 'Template';
+    var desc:String = 'A Template Pack JSON';
+    var restart:Bool = false;
+    var asGlobally:Bool = false;
+
+    // color setting
+    var bgR:FlxUINumericStepper;
+    var bgG:FlxUINumericStepper;
+    var bgB:FlxUINumericStepper;
+
+    override function create()
+    {
+        super.create();
+
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg.scrollFactor.set();
+		bg.color = 0xFF222222;
+		add(bg);
+
+        addButton();
+
+		FlxG.mouse.visible = true;
+    }
+
+    function addButton()
+    {
+        saveButton = new FlxButton(FlxG.width - 400, 25, "Save", saveJSON);
+        add(saveButton);
+
+        bgR = new FlxUINumericStepper(saveButton.x, saveButton.y + 25, 20, 0, 0, 255);
+        add(bgR);
+
+        bgG = new FlxUINumericStepper(bgR.x + 20, bgR.y, 20, 0, 0, 255);
+        add(bgG);
+
+        bgB = new FlxUINumericStepper(bgG.x + 20, bgR.y, 20, 0, 0, 255);
+        add(bgB);
+    }
+
+    override function update(elapsed:Float)
+    {
+        super.update(elapsed);
+
+        if (controls.BACK) {
+            MusicBeatState.switchState(new MasterEditorMenu());
+        }
+    }
+
+    function saveJSON()
+    {
+        var jsonCode = {
+            "name": name,
+            "description": desc,
+            "restart": restart,
+            "runsGlobally": asGlobally,
+            "color": [r, g, b]
+        }
+
+        var data:String = Json.stringify(jsonCode, "\t");
+
+		if (data.length > 0)
+		{
+			_file = new FileReference();
+			_file.addEventListener(Event.COMPLETE, onSaveComplete);
+			_file.addEventListener(Event.CANCEL, onSaveCancel);
+			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+			_file.save(jsonCode + ".json");
+		}
+    }
+
+    function onSaveComplete(_):Void
+    {
+        _file.removeEventListener(Event.COMPLETE, onSaveComplete);
+        _file.removeEventListener(Event.CANCEL, onSaveCancel);
+        _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+        _file = null;
+        FlxG.log.notice("Successfully saved LEVEL DATA.");
+    }
+
+    /**
+     * Called when the save file dialog is cancelled.
+     */
+    function onSaveCancel(_):Void
+    {
+        _file.removeEventListener(Event.COMPLETE, onSaveComplete);
+        _file.removeEventListener(Event.CANCEL, onSaveCancel);
+        _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+        _file = null;
+    }
+
+    /**
+     * Called if there is an error while saving the gameplay recording.
+     */
+    function onSaveError(_):Void
+    {
+        _file.removeEventListener(Event.COMPLETE, onSaveComplete);
+        _file.removeEventListener(Event.CANCEL, onSaveCancel);
+        _file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+        _file = null;
+        FlxG.log.error("Problem saving Level data");
+    }
+}
