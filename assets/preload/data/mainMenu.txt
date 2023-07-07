@@ -1,4 +1,4 @@
-storymenu
+story_mode
 freeplay
 donate
 mods

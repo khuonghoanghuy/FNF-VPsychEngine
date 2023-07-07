@@ -2,14 +2,9 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.effects.FlxFlicker;
-import lime.app.Application;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
 
 class OutdatedState extends MusicBeatState
 {
@@ -24,12 +19,7 @@ class OutdatedState extends MusicBeatState
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Sup bro, looks like you're running an   \n
-			outdated version of Psych Engine (" + MainMenuState.psychEngineVersion + "),\n
-			please update to " + TitleState.updateVersion + "!\n
-			Press ESCAPE to proceed anyway.\n
-			\n
-			Thank you for using the Engine!",
+			"Yo, i think you using a old version of VPsych Engine\nPlease update if you need!\nPress Enter to move to release page\nPress ESCAPE to continue playing",
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
@@ -41,7 +31,7 @@ class OutdatedState extends MusicBeatState
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
-				CoolUtil.browserLoad("https://github.com/ShadowMario/FNF-PsychEngine/releases");
+				CoolUtil.browserLoad("https://github.com/khuonghoanghuy/FNF-VPsychEngine/releases");
 			}
 			else if(controls.BACK) {
 				leftState = true;
