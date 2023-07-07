@@ -2,9 +2,14 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.effects.FlxFlicker;
+import lime.app.Application;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
 
 class OutdatedState extends MusicBeatState
 {
@@ -19,14 +24,14 @@ class OutdatedState extends MusicBeatState
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Chào bạn, có vẻ như bạn đang chạy\n
-			một phiên bản đã lỗi thời của VPsych Engine (" + MainMenuState.psychEngineVersion + "),\n
-			update đi " + TitleState.updateVersion + "!\n
-			Nhấn ESCAPE để bỏ qua.\n
+			"Sup bro, looks like you're running an   \n
+			outdated version of Psych Engine (" + MainMenuState.psychEngineVersion + "),\n
+			please update to " + TitleState.updateVersion + "!\n
+			Press ESCAPE to proceed anyway.\n
 			\n
-			Cảm ơn đã Sử dụng VPsych Engine! :)",
+			Thank you for using the Engine!",
 			32);
-		warnText.setFormat("FVH VHS by Minhdown", 32, FlxColor.WHITE, CENTER);
+		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
 	}
@@ -36,7 +41,7 @@ class OutdatedState extends MusicBeatState
 		if(!leftState) {
 			if (controls.ACCEPT) {
 				leftState = true;
-				CoolUtil.browserLoad("https://github.com/khuonghoanghuy/FNF-VPsychEngine/releases");
+				CoolUtil.browserLoad("https://github.com/ShadowMario/FNF-PsychEngine/releases");
 			}
 			else if(controls.BACK) {
 				leftState = true;

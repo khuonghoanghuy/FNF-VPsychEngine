@@ -24,13 +24,13 @@ class FlashingState extends MusicBeatState
 		add(bg);
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"Này, cẩn thận!\n
-			Bản Mod này có chứa đèn flash!\n
-			Nhấn Enter để tắt hoặc đi đến phần Menu.\n
-			Nhấn Escape để bỏ qua đoạn này.\n
-			Bạn đã được cảnh báo!",
+			"Hey, watch out!\n
+			This Mod contains some flashing lights!\n
+			Press ENTER to disable them now or go to Options Menu.\n
+			Press ESCAPE to ignore this message.\n
+			You've been warned!",
 			32);
-		warnText.setFormat("FVH VHS by Minhdown", 32, FlxColor.WHITE, CENTER);
+		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
 	}
