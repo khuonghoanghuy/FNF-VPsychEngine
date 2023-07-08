@@ -80,9 +80,7 @@ class OptionsState extends MusicBeatState
 
 		selectorLeft = new Alphabet(0, 0, '>', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, '<', true);
-		add(selectorRight);
-
+		
 		changeSelection();
 		ClientPrefs.saveSettings();
 
