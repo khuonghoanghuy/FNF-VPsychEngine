@@ -68,7 +68,7 @@ class MasterEditorMenu extends MusicBeatState
 		textBG.alpha = 0.6;
 		add(textBG);
 
-		descTxt = new FlxText(textBG.x, textBG.y + 16, FlxG.width, '', 32);
+		descTxt = new FlxText(textBG.x, textBG.y + -32, FlxG.width, '', 32);
 		descTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		descTxt.scrollFactor.set();
 		add(descTxt);

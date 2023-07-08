@@ -32,6 +32,8 @@ class FPS extends TextField
 	**/
 	public var currentFPS(default, null):Int;
 
+	public var secondFPS(default, null):Int;
+
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
@@ -44,6 +46,7 @@ class FPS extends TextField
 		this.y = y;
 
 		currentFPS = 0;
+		secondFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
 		defaultTextFormat = new TextFormat("_sans", 14, color);
@@ -78,11 +81,13 @@ class FPS extends TextField
 
 		var currentCount = times.length;
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
+		secondFPS = Math.round(currentFPS + currentCount / 8);
 		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
+		if (secondFPS < 10) secondFPS = 0;
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
-			text = "FPS: " + currentFPS;
+			text = "FPS: " + currentFPS + "." + secondFPS;
 			var memoryMegas:Float = 0;
 			
 			#if openfl

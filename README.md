@@ -5,7 +5,7 @@ VPsych Engine like a Addons of Psych Engine `I Think`, but that can be real `I T
 
 VPsych Engine contains:
 - New Options, Main Menu, Story Mode,... Menu Look!
-- More Setting Can be edit though Options Menu
+- More Setting Can be change though Options Menu
 - You can now open Setting as `Quick Setting` when you Pause Game
 - You can now edit Note Sustain Hold by using `floatCenter.txt` in `assets/data/` folder
 - You can now added/remove main selection on Main Menu by using `mainMenu.txt` in `assets/data/` folder 

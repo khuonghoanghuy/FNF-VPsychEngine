@@ -50,6 +50,8 @@ class FreeplayState extends MusicBeatState
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
+	var selectorLeft:Alphabet;
+
 	override function create()
 	{
 		//Paths.clearStoredMemory();
@@ -159,6 +161,9 @@ class FreeplayState extends MusicBeatState
 			lastDifficultyName = CoolUtil.defaultDifficulty;
 		}
 		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
+
+		selectorLeft = new Alphabet(0, 0, '>', true);
+		add(selectorLeft);
 		
 		changeSelection();
 		changeDiff();
@@ -197,6 +202,7 @@ class FreeplayState extends MusicBeatState
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
+		
 		super.create();
 	}
 
@@ -449,8 +455,6 @@ class FreeplayState extends MusicBeatState
 			});
 		}
 
-		// selector.y = (70 * curSelected) + 30;
-
 		#if !switch
 		intendedScore = Highscore.getScore(songs[curSelected].songName, curDifficulty);
 		intendedRating = Highscore.getRating(songs[curSelected].songName, curDifficulty);
@@ -473,9 +477,10 @@ class FreeplayState extends MusicBeatState
 			item.alpha = 0.6;
 			// item.setGraphicSize(Std.int(item.width * 0.8));
 
-			if (item.targetY == 0)
-			{
+			if (item.targetY == 0) {
 				item.alpha = 1;
+				selectorLeft.x = item.x - 63;
+				selectorLeft.y = item.y;
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
