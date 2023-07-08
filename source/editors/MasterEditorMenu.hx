@@ -21,15 +21,14 @@ using StringTools;
 class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
-		#if desktop
 		'Mods Editor',
-		#end
 		'Week Editor',
 		'Menu Character Editor',
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
 		'Character Editor',
-		'Chart Editor'
+		'Chart Editor',
+		'Code Pad'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -37,6 +36,7 @@ class MasterEditorMenu extends MusicBeatState
 	private var curSelected = 0;
 	private var curDirectory = 0;
 	private var directoryTxt:FlxText;
+	private var descTxt:FlxText;
 
 	override function create()
 	{
@@ -67,6 +67,11 @@ class MasterEditorMenu extends MusicBeatState
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 42).makeGraphic(FlxG.width, 42, 0xFF000000);
 		textBG.alpha = 0.6;
 		add(textBG);
+
+		descTxt = new FlxText(textBG.x, textBG.y + 16, FlxG.width, '', 32);
+		descTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
+		descTxt.scrollFactor.set();
+		add(descTxt);
 
 		directoryTxt = new FlxText(textBG.x, textBG.y + 4, FlxG.width, '', 32);
 		directoryTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
@@ -129,10 +134,10 @@ class MasterEditorMenu extends MusicBeatState
 					LoadingState.loadAndSwitchState(new DialogueEditorState(), false);
 				case 'Chart Editor'://felt it would be cool maybe
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
-				#if desktop
 				case 'Mods Editor'://most cool stuff
 					MusicBeatState.switchState(new ModsEditorState());
-				#end
+				case 'Code Pad':
+					MusicBeatState.switchState(new CodePad());
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
@@ -163,6 +168,17 @@ class MasterEditorMenu extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		curSelected += change;
+
+		switch(options[curSelected]) {
+			case 'Character Editor': descTxt.text = "Create your own Characters file";
+			case 'Week Editor': descTxt.text = "Create your own week";
+			case 'Menu Character Editor': descTxt.text = "Create your own menu characters";
+			case 'Dialogue Portrait Editor': descTxt.text = "Create your own dialogue portait for dialogue";
+			case 'Dialogue Editor': descTxt.text = "Create your own dialogue text";
+			case 'Chart Editor': descTxt.text = "Create a chart for your song";
+			case 'Mods Editor': descTxt.text = "Create own a pack.json file";
+			case 'Code Pad': descTxt.text = "Write or Coding Code for Game";
+		}
 
 		if (curSelected < 0)
 			curSelected = options.length - 1;
