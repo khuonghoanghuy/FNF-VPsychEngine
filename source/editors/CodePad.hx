@@ -18,6 +18,7 @@ class CodePad extends MusicBeatState
 
   var str:String = "write code";
   var saveFile:FlxButton;
+  var openFile:FlxButton;
   var partInput:FlxUIInputText;
   
   override function create()
@@ -31,6 +32,9 @@ class CodePad extends MusicBeatState
   {
     saveFile = new FlxButton(FlxG.width - 400, 25, "Save", saveFileStuff);
     add(saveFile);
+
+    openFile = new FlxButton(saveFile.x + 20, saveFile.y, "Open", openFileStuff);
+    add(openFile);
   }
 
   function saveFileStuff()
@@ -47,7 +51,12 @@ class CodePad extends MusicBeatState
       _file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
       _file.save(jsonCode + ".json");
     }
-  }s
+  }
+
+  function openFileStuff()
+  {
+    
+  }
 
   override function update(elapsed:Float)
   {
