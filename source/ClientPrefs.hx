@@ -93,7 +93,6 @@ class ClientPrefs {
 
 	public static function loadDefaultKeys() {
 		defaultKeys = keyBinds.copy();
-		//trace(defaultKeys);
 	}
 
 	public static function saveSettings() {

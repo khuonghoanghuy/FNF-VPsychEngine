@@ -71,22 +71,22 @@ class ModsEditorState extends MusicBeatState
         saveButton = new FlxButton(FlxG.width - 400, 25, "Save", saveJSON);
         add(saveButton);
 
-        bgR = new FlxUINumericStepper(saveButton.x, saveButton.y + 25, 20, 0, 0, 255);
+        bgR = new FlxUINumericStepper(saveButton.x, saveButton.y + 25, 40, 0, 0, 255);
         add(bgR);
 
-        bgG = new FlxUINumericStepper(bgR.x + 100, bgR.y, 20, 0, 0, 255);
+        bgG = new FlxUINumericStepper(bgR.x + 100, bgR.y, 40, 0, 0, 255);
         add(bgG);
 
-        bgB = new FlxUINumericStepper(bgG.x + 100, bgR.y, 20, 0, 0, 255);
+        bgB = new FlxUINumericStepper(bgG.x + 100, bgR.y, 40, 0, 0, 255);
         add(bgB);
     }
 
     function addInput()
     {
-        descInput = new FlxUIInputText(saveButton.x + -300, saveButton.y, 0, desc, 8, FlxColor.BLACK, FlxColor.WHITE);
+        descInput = new FlxUIInputText(saveButton.x + -300, saveButton.y, 0, desc, 15, FlxColor.BLACK, FlxColor.WHITE);
         add(descInput);
 
-        nameInput = new FlxUIInputText(descInput.x + -200, descInput.y, 0, name, 8, FlxColor.BLACK, FlxColor.WHITE);
+        nameInput = new FlxUIInputText(descInput.x + -200, descInput.y, 0, name, 15, FlxColor.BLACK, FlxColor.WHITE);
         add(nameInput);
     }
 
@@ -103,9 +103,6 @@ class ModsEditorState extends MusicBeatState
         g = Math.round(bgG.value);
         b = Math.round(bgB.value);
 
-        /**
-            cool code
-        **/
         bg.color = FlxColor.fromRGB(r, g, b);
 
         if (FlxG.keys.justPressed.ESCAPE) {
@@ -115,8 +112,7 @@ class ModsEditorState extends MusicBeatState
 
     function saveJSON()
     {
-        var jsonCode = 
-        {
+        var jsonCode = {
             "name": name,
             "description": desc,
             "restart": restart,
