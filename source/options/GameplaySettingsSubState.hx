@@ -54,8 +54,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'Accuracy and Rating type, as same but the rank is not',
 			'ratingType',
 			'string',
+			'Rating',
 			['Accuracy', 'Rating']);
 		addOption(option);
+		option.onChange = onChangeRatingType;
 
 		var option:Option = new Option('Disable Reset Button',
 			"If checked, pressing Reset won't do anything.",
@@ -138,5 +140,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	function onChangeHitsoundVolume()
 	{
 		FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.hitsoundVolume);
+	}
+
+	function onChangeRatingType()
+	{
+		ClientPrefs.ratingType = ClientPrefs.ratingType;
 	}
 }

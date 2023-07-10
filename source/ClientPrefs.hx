@@ -145,36 +145,20 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
-		if(FlxG.save.data.downScroll != null) {
-			downScroll = FlxG.save.data.downScroll;
-		}
-		if(FlxG.save.data.middleScroll != null) {
-			middleScroll = FlxG.save.data.middleScroll;
-		}
-		if(FlxG.save.data.opponentStrums != null) {
-			opponentStrums = FlxG.save.data.opponentStrums;
-		}
+		if(FlxG.save.data.downScroll != null) downScroll = FlxG.save.data.downScroll;
+		if(FlxG.save.data.middleScroll != null) middleScroll = FlxG.save.data.middleScroll;
+		if(FlxG.save.data.opponentStrums != null) opponentStrums = FlxG.save.data.opponentStrums;
 		if(FlxG.save.data.showFPS != null) {
 			showFPS = FlxG.save.data.showFPS;
 			if(Main.fpsVar != null) {
 				Main.fpsVar.visible = showFPS;
 			}
 		}
-		if(FlxG.save.data.flashing != null) {
-			flashing = FlxG.save.data.flashing;
-		}
-		if(FlxG.save.data.globalAntialiasing != null) {
-			globalAntialiasing = FlxG.save.data.globalAntialiasing;
-		}
-		if(FlxG.save.data.noteSplashes != null) {
-			noteSplashes = FlxG.save.data.noteSplashes;
-		}
-		if(FlxG.save.data.lowQuality != null) {
-			lowQuality = FlxG.save.data.lowQuality;
-		}
-		if(FlxG.save.data.shaders != null) {
-			shaders = FlxG.save.data.shaders;
-		}
+		if(FlxG.save.data.flashing != null) flashing = FlxG.save.data.flashing;
+		if(FlxG.save.data.globalAntialiasing != null) globalAntialiasing = FlxG.save.data.globalAntialiasing;
+		if(FlxG.save.data.noteSplashes != null) noteSplashes = FlxG.save.data.noteSplashes;
+		if(FlxG.save.data.lowQuality != null) lowQuality = FlxG.save.data.lowQuality;
+		if(FlxG.save.data.shaders != null) shaders = FlxG.save.data.shaders;
 		if(FlxG.save.data.framerate != null) {
 			framerate = FlxG.save.data.framerate;
 			if(framerate > FlxG.drawFramerate) {
@@ -191,61 +175,26 @@ class ClientPrefs {
 		if(FlxG.save.data.violence != null) {
 			violence = FlxG.save.data.violence;
 		}*/
-		if(FlxG.save.data.camZooms != null) {
-			camZooms = FlxG.save.data.camZooms;
-		}
-		if(FlxG.save.data.hideHud != null) {
-			hideHud = FlxG.save.data.hideHud;
-		}
-		if(FlxG.save.data.noteOffset != null) {
-			noteOffset = FlxG.save.data.noteOffset;
-		}
-		if(FlxG.save.data.arrowHSV != null) {
-			arrowHSV = FlxG.save.data.arrowHSV;
-		}
-		if(FlxG.save.data.ghostTapping != null) {
-			ghostTapping = FlxG.save.data.ghostTapping;
-		}
-		if(FlxG.save.data.timeBarType != null) {
-			timeBarType = FlxG.save.data.timeBarType;
-		}
-		if(FlxG.save.data.scoreZoom != null) {
-			scoreZoom = FlxG.save.data.scoreZoom;
-		}
-		if(FlxG.save.data.noReset != null) {
-			noReset = FlxG.save.data.noReset;
-		}
-		if(FlxG.save.data.healthBarAlpha != null) {
-			healthBarAlpha = FlxG.save.data.healthBarAlpha;
-		}
-		if(FlxG.save.data.comboOffset != null) {
-			comboOffset = FlxG.save.data.comboOffset;
-		}
+		if(FlxG.save.data.camZooms != null) camZooms = FlxG.save.data.camZooms;
+		if(FlxG.save.data.hideHud != null) hideHud = FlxG.save.data.hideHud;
+		if(FlxG.save.data.noteOffset != null) noteOffset = FlxG.save.data.noteOffset;
+		if(FlxG.save.data.arrowHSV != null) arrowHSV = FlxG.save.data.arrowHSV;
+		if(FlxG.save.data.ghostTapping != null) ghostTapping = FlxG.save.data.ghostTapping;
+		if(FlxG.save.data.timeBarType != null) timeBarType = FlxG.save.data.timeBarType;
+		if(FlxG.save.data.scoreZoom != null) scoreZoom = FlxG.save.data.scoreZoom;
+		if(FlxG.save.data.noReset != null) noReset = FlxG.save.data.noReset;
+		if(FlxG.save.data.healthBarAlpha != null) healthBarAlpha = FlxG.save.data.healthBarAlpha;
+		if(FlxG.save.data.comboOffset != null) comboOffset = FlxG.save.data.comboOffset;
 		
-		if(FlxG.save.data.ratingOffset != null) {
-			ratingOffset = FlxG.save.data.ratingOffset;
-		}
-		if(FlxG.save.data.sickWindow != null) {
-			sickWindow = FlxG.save.data.sickWindow;
-		}
-		if(FlxG.save.data.goodWindow != null) {
-			goodWindow = FlxG.save.data.goodWindow;
-		}
-		if(FlxG.save.data.badWindow != null) {
-			badWindow = FlxG.save.data.badWindow;
-		}
-		if(FlxG.save.data.safeFrames != null) {
-			safeFrames = FlxG.save.data.safeFrames;
-		}
-		if(FlxG.save.data.controllerMode != null) {
-			controllerMode = FlxG.save.data.controllerMode;
-		}
-		if(FlxG.save.data.hitsoundVolume != null) {
-			hitsoundVolume = FlxG.save.data.hitsoundVolume;
-		}
-		if(FlxG.save.data.pauseMusic != null) {
-			pauseMusic = FlxG.save.data.pauseMusic;
-		}
+		if(FlxG.save.data.ratingOffset != null) ratingOffset = FlxG.save.data.ratingOffset;
+		if(FlxG.save.data.sickWindow != null) sickWindow = FlxG.save.data.sickWindow;
+		if(FlxG.save.data.goodWindow != null) goodWindow = FlxG.save.data.goodWindow;
+		if(FlxG.save.data.badWindow != null) badWindow = FlxG.save.data.badWindow;
+		if(FlxG.save.data.safeFrames != null) safeFrames = FlxG.save.data.safeFrames;
+		if(FlxG.save.data.controllerMode != null) controllerMode = FlxG.save.data.controllerMode;
+		if(FlxG.save.data.hitsoundVolume != null) hitsoundVolume = FlxG.save.data.hitsoundVolume;
+		if(FlxG.save.data.pauseMusic != null) pauseMusic = FlxG.save.data.pauseMusic;
+
 		if(FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;
@@ -258,6 +207,7 @@ class ClientPrefs {
 		// flixel automatically saves your volume!
 		if (FlxG.save.data.volume != null) FlxG.sound.volume = FlxG.save.data.volume;
 		if (FlxG.save.data.mute != null) FlxG.sound.muted = FlxG.save.data.mute;
+
 		if (FlxG.save.data.checkForUpdates != null) checkForUpdates = FlxG.save.data.checkForUpdates;
 		if (FlxG.save.data.comboStacking != null) comboStacking = FlxG.save.data.comboStacking;
 		if (FlxG.save.data.iconBeatType != null) iconBeatType = FlxG.save.data.iconBeatType;
@@ -288,6 +238,7 @@ class ClientPrefs {
 		FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 		FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 	}
+
 	public static function copyKey(arrayToCopy:Array<FlxKey>):Array<FlxKey> {
 		var copiedArray:Array<FlxKey> = arrayToCopy.copy();
 		var i:Int = 0;
