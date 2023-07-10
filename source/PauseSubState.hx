@@ -1,18 +1,15 @@
 package;
 
-import Controls.Control;
+import options.QuickOptions;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.keyboard.FlxKey;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.FlxCamera;
 import flixel.util.FlxStringUtil;
 
 class PauseSubState extends MusicBeatSubstate
@@ -20,8 +17,10 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Quick Setting', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Quick Options', 'Exit to menu'];
 	var difficultyChoices = [];
+	var quickSetting = [];
+
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
@@ -60,6 +59,11 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		difficultyChoices.push('BACK');
 
+		for (i in 0...QuickOptions.arrayOptions.length) {
+			var opt:String = '' + QuickOptions.arrayOptions[i];
+			quickSetting.push(opt);
+		}
+		quickSetting.push('BACK');
 
 		pauseMusic = new FlxSound();
 		if(songName != null) {
@@ -190,6 +194,11 @@ class PauseSubState extends MusicBeatSubstate
 				}
 		}
 
+		/*if (FlxG.keys.justPressed.TAB)
+		{
+			quickSetting.push()
+		}*/
+
 		if (accepted && (cantUnpause <= 0 || !ClientPrefs.controllerMode))
 		{
 			if (menuItems == difficultyChoices)
@@ -210,6 +219,24 @@ class PauseSubState extends MusicBeatSubstate
 				regenMenu();
 			}
 
+			if (menuItems == quickSetting)
+			{
+				switch (daSelected)
+				{
+					case "Ghost tap":
+						ClientPrefs.ghostTapping = !ClientPrefs.ghostTapping;
+						restartSong();
+
+					case "Downscroll":
+						ClientPrefs.downScroll = !ClientPrefs.downScroll;
+						restartSong();
+
+					case "BACK":
+						menuItems = menuItemsOG;
+						regenMenu();
+				}
+			}
+
 			switch (daSelected)
 			{
 				case "Resume":
@@ -218,9 +245,6 @@ class PauseSubState extends MusicBeatSubstate
 					menuItems = difficultyChoices;
 					deleteSkipTimeText();
 					regenMenu();
-				case "Quick Setting":
-					// close();
-					openSubState(new options.QuickOptions());
 				case 'Toggle Practice Mode':
 					PlayState.instance.practiceMode = !PlayState.instance.practiceMode;
 					PlayState.changedDifficulty = true;
@@ -248,6 +272,11 @@ class PauseSubState extends MusicBeatSubstate
 				case "End Song":
 					close();
 					PlayState.instance.finishSong(true);
+				case "Quick Options":
+					menuItems = quickSetting;
+					deleteSkipTimeText();
+					regenMenu();
+
 				case 'Toggle Botplay':
 					PlayState.instance.cpuControlled = !PlayState.instance.cpuControlled;
 					PlayState.changedDifficulty = true;

@@ -13,8 +13,7 @@ import openfl.events.IOErrorEvent;
 import haxe.Json;
 import FlxUIDropDownMenuCustom;
 
-// a state allows u coding lua or text inside the game, wow!
-// this state is `SUPER, VERY, VERY MUCH W.I.P`
+// now i know that we can't do it!
 class CodePad extends MusicBeatState
 {
   var _file:FileReference;

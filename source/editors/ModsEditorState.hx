@@ -35,11 +35,6 @@ class ModsEditorState extends MusicBeatState
     var _file:FileReference;
     var saveButton:FlxButton;
 
-    // color stuff
-    var r:Int = 0;
-    var g:Int = 0;
-    var b:Int = 0;
-
     // data json stuff
     var name:String = 'Template';
     var desc:String = 'A Template Pack JSON';
@@ -51,16 +46,22 @@ class ModsEditorState extends MusicBeatState
     var bgG:FlxUINumericStepper;
     var bgB:FlxUINumericStepper;
 
+    var bg:FlxSprite;
+
+    // input stuff
+    var descInput:FlxUIInputText;
+    var nameInput:FlxUIInputText;
+
     override function create()
     {
         super.create();
 
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.scrollFactor.set();
-		bg.color = 0xFF222222;
 		add(bg);
 
         addButton();
+        addInput();
 
 		FlxG.mouse.visible = true;
     }
@@ -73,25 +74,49 @@ class ModsEditorState extends MusicBeatState
         bgR = new FlxUINumericStepper(saveButton.x, saveButton.y + 25, 20, 0, 0, 255);
         add(bgR);
 
-        bgG = new FlxUINumericStepper(bgR.x + 20, bgR.y, 20, 0, 0, 255);
+        bgG = new FlxUINumericStepper(bgR.x + 100, bgR.y, 20, 0, 0, 255);
         add(bgG);
 
-        bgB = new FlxUINumericStepper(bgG.x + 20, bgR.y, 20, 0, 0, 255);
+        bgB = new FlxUINumericStepper(bgG.x + 100, bgR.y, 20, 0, 0, 255);
         add(bgB);
     }
+
+    function addInput()
+    {
+        descInput = new FlxUIInputText(saveButton.x + -300, saveButton.y, 0, desc, 8, FlxColor.BLACK, FlxColor.WHITE);
+        add(descInput);
+
+        nameInput = new FlxUIInputText(descInput.x + -200, descInput.y, 0, name, 8, FlxColor.BLACK, FlxColor.WHITE);
+        add(nameInput);
+    }
+
+    // color stuff
+    var r:Int = 0;
+    var g:Int = 0;
+    var b:Int = 0;
 
     override function update(elapsed:Float)
     {
         super.update(elapsed);
 
-        if (controls.BACK) {
+        r = Math.round(bgR.value);
+        g = Math.round(bgG.value);
+        b = Math.round(bgB.value);
+
+        /**
+            cool code
+        **/
+        bg.color = FlxColor.fromRGB(r, g, b);
+
+        if (FlxG.keys.justPressed.ESCAPE) {
             MusicBeatState.switchState(new MasterEditorMenu());
         }
     }
 
     function saveJSON()
     {
-        var jsonCode = {
+        var jsonCode = 
+        {
             "name": name,
             "description": desc,
             "restart": restart,
@@ -107,7 +132,7 @@ class ModsEditorState extends MusicBeatState
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
-			_file.save(jsonCode + ".json");
+			_file.save(jsonCode, ".json");
 		}
     }
 

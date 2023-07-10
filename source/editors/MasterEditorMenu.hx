@@ -27,8 +27,7 @@ class MasterEditorMenu extends MusicBeatState
 		'Dialogue Editor',
 		'Dialogue Portrait Editor',
 		'Character Editor',
-		'Chart Editor',
-		'Code Pad'
+		'Chart Editor'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
@@ -68,8 +67,8 @@ class MasterEditorMenu extends MusicBeatState
 		textBG.alpha = 0.6;
 		add(textBG);
 
-		descTxt = new FlxText(textBG.x, textBG.y + -32, FlxG.width, '', 32);
-		descTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
+		descTxt = new FlxText(textBG.x, textBG.y + -36, FlxG.width, '', 32);
+		descTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descTxt.scrollFactor.set();
 		add(descTxt);
 
@@ -136,8 +135,6 @@ class MasterEditorMenu extends MusicBeatState
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
 				case 'Mods Editor'://most cool stuff
 					MusicBeatState.switchState(new ModsEditorState());
-				case 'Code Pad':
-					MusicBeatState.switchState(new CodePad());
 			}
 			FlxG.sound.music.volume = 0;
 			#if PRELOAD_ALL
@@ -169,6 +166,11 @@ class MasterEditorMenu extends MusicBeatState
 
 		curSelected += change;
 
+		if (curSelected < 0)
+			curSelected = options.length - 1;
+		if (curSelected >= options.length)
+			curSelected = 0;
+
 		switch(options[curSelected]) {
 			case 'Character Editor': descTxt.text = "Create your own Characters file";
 			case 'Week Editor': descTxt.text = "Create your own week";
@@ -177,13 +179,7 @@ class MasterEditorMenu extends MusicBeatState
 			case 'Dialogue Editor': descTxt.text = "Create your own dialogue text";
 			case 'Chart Editor': descTxt.text = "Create a chart for your song";
 			case 'Mods Editor': descTxt.text = "Create own a pack.json file";
-			case 'Code Pad': descTxt.text = "Write or Coding Code for Game";
 		}
-
-		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
-			curSelected = 0;
 	}
 
 	#if MODS_ALLOWED
