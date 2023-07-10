@@ -21,6 +21,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
+		var option:Option = new Option('Ghost Tapping',
+			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",
+			'ghostTapping',
+			'bool',
+			true);
+		addOption(option);
+
 		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Downscroll', //Name
 			'If checked, notes go Down instead of Up, simple enough.', //Description
@@ -28,14 +35,14 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool', //Variable type
 			false); //Default value
 		addOption(option);
-
+	
 		var option:Option = new Option('Middlescroll',
 			'If checked, your notes get centered.',
 			'middleScroll',
 			'bool',
 			false);
 		addOption(option);
-
+	
 		var option:Option = new Option('Opponent Notes',
 			'If unchecked, opponent notes get hidden.',
 			'opponentStrums',
@@ -43,11 +50,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Ghost Tapping',
-			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",
-			'ghostTapping',
-			'bool',
-			true);
+		var option:Option = new Option('Display Score Type: ',
+			'Accuracy and Rating type, as same but the rank is not',
+			'ratingType',
+			'string',
+			['Accuracy', 'Rating']);
 		addOption(option);
 
 		var option:Option = new Option('Disable Reset Button',

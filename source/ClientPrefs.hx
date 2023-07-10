@@ -35,6 +35,7 @@ class ClientPrefs {
 	public static var comboStacking = true;
 
 	public static var iconBeatType:String = 'Psych';
+	public static var ratingType:String = 'Rating';
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -132,6 +133,7 @@ class ClientPrefs {
 		FlxG.save.data.comboStacking = comboStacking;
 		
 		FlxG.save.data.iconBeatType = iconBeatType;
+		FlxG.save.data.ratingType = ratingType;
 	
 		FlxG.save.flush();
 
@@ -254,22 +256,12 @@ class ClientPrefs {
 		}
 		
 		// flixel automatically saves your volume!
-		if(FlxG.save.data.volume != null)
-		{
-			FlxG.sound.volume = FlxG.save.data.volume;
-		}
-		if (FlxG.save.data.mute != null)
-		{
-			FlxG.sound.muted = FlxG.save.data.mute;
-		}
-		if (FlxG.save.data.checkForUpdates != null)
-		{
-			checkForUpdates = FlxG.save.data.checkForUpdates;
-		}
-		if (FlxG.save.data.comboStacking != null)
-			comboStacking = FlxG.save.data.comboStacking;
-		
+		if (FlxG.save.data.volume != null) FlxG.sound.volume = FlxG.save.data.volume;
+		if (FlxG.save.data.mute != null) FlxG.sound.muted = FlxG.save.data.mute;
+		if (FlxG.save.data.checkForUpdates != null) checkForUpdates = FlxG.save.data.checkForUpdates;
+		if (FlxG.save.data.comboStacking != null) comboStacking = FlxG.save.data.comboStacking;
 		if (FlxG.save.data.iconBeatType != null) iconBeatType = FlxG.save.data.iconBeatType;
+		if (FlxG.save.data.ratingType != null) ratingType = FlxG.save.data.ratingType;
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2', CoolUtil.getSavePath());
@@ -283,7 +275,7 @@ class ClientPrefs {
 	}
 
 	inline public static function getGameplaySetting(name:String, defaultValue:Dynamic):Dynamic {
-		return /*PlayState.isStoryMode ? defaultValue : */ (gameplaySettings.exists(name) ? gameplaySettings.get(name) : defaultValue);
+		return (gameplaySettings.exists(name) ? gameplaySettings.get(name) : defaultValue);
 	}
 
 	public static function reloadControls() {
