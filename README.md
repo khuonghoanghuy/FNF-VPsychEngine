@@ -10,6 +10,8 @@ VPsych Engine contains:
 - You can now edit Note Sustain Hold by using `floatCenter.txt` in `assets/data/` folder
 - You can now added/remove main selection on Main Menu by using `mainMenu.txt` in `assets/data/` folder 
 
+And much more of this engine!
+
 ## Installation:
 You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
 
