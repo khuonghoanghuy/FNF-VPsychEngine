@@ -162,8 +162,8 @@ class FreeplayState extends MusicBeatState
 		}
 		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
 
-		selectorLeft = new Alphabet(0, 0, '>', true);
-		add(selectorLeft);
+		/*selectorLeft = new Alphabet(0, 0, '>', true);
+		add(selectorLeft);*/
 		
 		changeSelection();
 		changeDiff();
@@ -479,8 +479,6 @@ class FreeplayState extends MusicBeatState
 
 			if (item.targetY == 0) {
 				item.alpha = 1;
-				selectorLeft.x = item.x - 63;
-				selectorLeft.y = item.y;
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}

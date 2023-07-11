@@ -36,6 +36,9 @@ class ClientPrefs {
 
 	public static var iconBeatType:String = 'Psych';
 	public static var ratingType:String = 'Rating';
+	public static var judgementStuff:String = 'Simple';
+
+	public static var count:Int = 0;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -134,6 +137,8 @@ class ClientPrefs {
 		
 		FlxG.save.data.iconBeatType = iconBeatType;
 		FlxG.save.data.ratingType = ratingType;
+		FlxG.save.data.count = count;
+		FlxG.save.data.judgementStuff = judgementStuff;
 	
 		FlxG.save.flush();
 
@@ -212,6 +217,9 @@ class ClientPrefs {
 		if (FlxG.save.data.comboStacking != null) comboStacking = FlxG.save.data.comboStacking;
 		if (FlxG.save.data.iconBeatType != null) iconBeatType = FlxG.save.data.iconBeatType;
 		if (FlxG.save.data.ratingType != null) ratingType = FlxG.save.data.ratingType;
+		if (FlxG.save.data.judgementStuff != null) judgementStuff = FlxG.save.data.judgementStuff;
+
+		if (FlxG.save.data.count != null) count = FlxG.save.data.count;
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2', CoolUtil.getSavePath());

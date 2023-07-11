@@ -273,6 +273,8 @@ class PlayState extends MusicBeatState
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
+	var judgenmentCounterTxt:FlxText;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -1134,6 +1136,13 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
+		judgenmentCounterTxt = new FlxText(40, FlxG.height - 400, 0, "", 20);
+		judgenmentCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgenmentCounterTxt.scrollFactor.set();
+		judgenmentCounterTxt.borderSize = 1.25;
+		judgenmentCounterTxt.visible = !ClientPrefs.hideHud;
+		add(judgenmentCounterTxt);
+
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
@@ -1159,6 +1168,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		judgenmentCounterTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -2251,6 +2261,18 @@ class PlayState extends MusicBeatState
 				daNote.destroy();
 			}
 			--i;
+		}
+	}
+
+	public function updateJud(iftrue:Bool = false)
+	{
+		switch (ClientPrefs.judgementStuff)
+		{
+			case "Simple":
+				judgenmentCounterTxt.text = 'Sick: ' + sicks + '\nGood: ' + goods + "\nBad: " + bads + "\nShit: " + shits;
+
+			case "Advanced":
+				judgenmentCounterTxt.text = 'Combo: ' + combo + '\nSick: ' + sicks + '\nGood: ' + goods + "\nBad: " + bads + "\nShit: " + shits + "\nMisses: " + songMisses;
 		}
 	}
 
@@ -4032,6 +4054,7 @@ class PlayState extends MusicBeatState
 
 	public var totalPlayed:Int = 0;
 	public var totalNotesHit:Float = 0.0;
+	var comboCount:Int = 0;
 
 	public var showCombo:Bool = false;
 	public var showComboNum:Bool = true;
@@ -4237,6 +4260,7 @@ class PlayState extends MusicBeatState
 		 */
 
 		coolText.text = Std.string(seperatedScore);
+		comboCount++;
 		// add(coolText);
 
 		FlxTween.tween(rating, {alpha: 0}, 0.2 / playbackRate, {
@@ -4469,6 +4493,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 		combo = 0;
+		comboCount = 0;
 		health -= daNote.missHealth * healthLoss;
 		
 		if(instakillOnMiss)
@@ -4477,8 +4502,6 @@ class PlayState extends MusicBeatState
 			doDeathCheck(true);
 		}
 
-		//For testing purposes
-		//trace(daNote.missHealth);
 		songMisses++;
 		vocals.volume = 0;
 		if(!practiceMode) songScore -= 10;
@@ -4632,6 +4655,8 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
+			else if (ClientPrefs.ratingType == "Accuracy") totalNotesHit += 1;
+
 			health += note.hitHealth * healthGain;
 
 			if(!note.noAnimation) {
@@ -5218,9 +5243,13 @@ class PlayState extends MusicBeatState
 			else if (songMisses >= 10) ratingFC = "Clear";
 		}
 		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce -Ghost
+		
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
+
+		if (ClientPrefs.judgementStuff != "None")
+			updateJud(true);
 	}
 
 	#if ACHIEVEMENTS_ALLOWED

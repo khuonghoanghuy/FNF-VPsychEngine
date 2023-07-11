@@ -132,7 +132,8 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
+		ClientPrefs.count += 1;
+		path = "./crash/" + "crashLog " + dateNow + ".log";
 
 		for (stackItem in callStack)
 		{
@@ -154,6 +155,7 @@ class Main extends Sprite
 
 		Sys.println(errMsg);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
+
 
 		Application.current.window.alert(errMsg, "Error!");
 		DiscordClient.shutdown();
