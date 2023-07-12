@@ -64,7 +64,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		option.scrollSpeed = 1;
 		option.minValue = 0.5;
 		option.maxValue = 8.0; // too much
-		option.changeValue = 0.01;
+		option.changeValue = 0.05;
 		option.displayFormat = '%vX';
 		option.decimals = 2;
 		optionsArray.push(option);
@@ -90,6 +90,9 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		optionsArray.push(option);
 
 		var option:GameplayOption = new GameplayOption('Practice Mode', 'practice', 'bool', false);
+		optionsArray.push(option);
+
+		var option:GameplayOption = new GameplayOption('Enable Quick Options', 'enableQS', 'bool', true);
 		optionsArray.push(option);
 
 		var option:GameplayOption = new GameplayOption('Botplay', 'botplay', 'bool', false);

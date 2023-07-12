@@ -38,6 +38,8 @@ class ClientPrefs {
 	public static var ratingType:String = 'Rating';
 	public static var judgementStuff:String = 'Simple';
 
+	public static var enableQS:Bool = true;
+
 	public static var count:Int = 0;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
@@ -139,6 +141,8 @@ class ClientPrefs {
 		FlxG.save.data.ratingType = ratingType;
 		FlxG.save.data.count = count;
 		FlxG.save.data.judgementStuff = judgementStuff;
+
+		FlxG.save.data.enableQS = enableQS;
 	
 		FlxG.save.flush();
 
@@ -218,6 +222,8 @@ class ClientPrefs {
 		if (FlxG.save.data.iconBeatType != null) iconBeatType = FlxG.save.data.iconBeatType;
 		if (FlxG.save.data.ratingType != null) ratingType = FlxG.save.data.ratingType;
 		if (FlxG.save.data.judgementStuff != null) judgementStuff = FlxG.save.data.judgementStuff;
+
+		if (FlxG.save.data.enableQS != null) enableQS = FlxG.save.data.enableQS;
 
 		if (FlxG.save.data.count != null) count = FlxG.save.data.count;
 

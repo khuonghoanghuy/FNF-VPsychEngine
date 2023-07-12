@@ -17,7 +17,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Quick Options', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Exit to menu'];
 	var difficultyChoices = [];
 	var quickSetting = [];
 
@@ -36,6 +36,11 @@ class PauseSubState extends MusicBeatSubstate
 	{
 		super();
 		if(CoolUtil.difficulties.length < 2) menuItemsOG.remove('Change Difficulty'); //No need to change difficulty if there is only one!
+
+		if (ClientPrefs.enableQS)
+		{
+			menuItemsOG.push("Quick Options");
+		}
 
 		if(PlayState.chartingMode)
 		{

@@ -254,9 +254,6 @@ class ModsMenuState extends MusicBeatState
 		// more buttons
 		var startX:Int = 1100;
 
-
-
-
 		/*
 		installButton = new FlxButton(startX, 620, "Install Mod", function()
 		{
