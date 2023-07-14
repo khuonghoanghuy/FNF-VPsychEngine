@@ -33,6 +33,9 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [];
+	
+	// [x, y] if needed!
+	var postionShit:Array<Array<Float>> = [];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -42,6 +45,7 @@ class MainMenuState extends MusicBeatState
 	override function create()
 	{
         optionShit = CoolUtil.coolTextFile(Paths.txt("mainMenu"));
+		// postionShit = CoolUtil.coolTextFile(Paths.txt("mainMenuPos"));
 		
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();

@@ -37,6 +37,7 @@ class ClientPrefs {
 	public static var iconBeatType:String = 'Psych';
 	public static var ratingType:String = 'Rating';
 	public static var judgementStuff:String = 'Simple';
+	public static var botText:String = 'BOTPLAY';
 
 	public static var enableQS:Bool = true;
 
@@ -141,6 +142,7 @@ class ClientPrefs {
 		FlxG.save.data.ratingType = ratingType;
 		FlxG.save.data.count = count;
 		FlxG.save.data.judgementStuff = judgementStuff;
+		FlxG.save.data.botText = botText;
 
 		FlxG.save.data.enableQS = enableQS;
 	
@@ -226,6 +228,8 @@ class ClientPrefs {
 		if (FlxG.save.data.enableQS != null) enableQS = FlxG.save.data.enableQS;
 
 		if (FlxG.save.data.count != null) count = FlxG.save.data.count;
+
+		if (FlxG.save.data.botText != null) botText = FlxG.save.data.botText;
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2', CoolUtil.getSavePath());
