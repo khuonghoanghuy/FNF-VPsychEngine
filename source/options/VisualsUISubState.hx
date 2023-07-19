@@ -111,6 +111,16 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		option.onChange = onChangeIconBeat;
 
+		var option:Option = new Option('Judgement Counter Type: ',
+			"A Judgement Counter without lua stuff :)",
+			'judgementStuff',
+			'string',
+			'Simple',
+			['Advanced', 'Simple', 'None']
+		);
+		addOption(option);
+		option.onChange = onChangeJudCounter;
+
 		super();
 	}
 
@@ -140,5 +150,10 @@ class VisualsUISubState extends BaseOptionsMenu
 	function onChangeIconBeat()
 	{
 		ClientPrefs.iconBeatType = ClientPrefs.iconBeatType;
+	}
+
+	function onChangeJudCounter()
+	{
+		ClientPrefs.judgementStuff = ClientPrefs.judgementStuff;
 	}
 }

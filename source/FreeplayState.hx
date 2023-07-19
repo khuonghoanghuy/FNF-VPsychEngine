@@ -50,7 +50,7 @@ class FreeplayState extends MusicBeatState
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
-	var selectorLeft:Alphabet;
+	var arrowAlpha:Alphabet;
 
 	override function create()
 	{
@@ -162,11 +162,16 @@ class FreeplayState extends MusicBeatState
 		}
 		curDifficulty = Math.round(Math.max(0, CoolUtil.defaultDifficulties.indexOf(lastDifficultyName)));
 
-		selectorLeft = new Alphabet(0, 0, '>', true);
-		add(selectorLeft);
+		/*selectorLeft = new Alphabet(0, 0, '>', true);
+		add(selectorLeft);*/
 		
 		changeSelection();
 		changeDiff();
+		// subStuff(false);
+
+		/*arrowAlpha = new Alphabet(0, 0, '>');
+		arrowAlpha.screenCenter(Y);
+		add(arrowAlpha);*/
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
@@ -247,6 +252,10 @@ class FreeplayState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
+
+		/*if (FlxG.mouse.pressed && FlxG.mouse.overlaps(arrowAlpha)) {
+			subStuff(true);
+		}*/
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
@@ -479,8 +488,6 @@ class FreeplayState extends MusicBeatState
 
 			if (item.targetY == 0) {
 				item.alpha = 1;
-				selectorLeft.x = item.x - 63;
-				selectorLeft.y = item.y;
 				// item.setGraphicSize(Std.int(item.width));
 			}
 		}
@@ -528,6 +535,21 @@ class FreeplayState extends MusicBeatState
 			curDifficulty = newPos;
 		}
 	}
+
+	// open this function will like you are open a sub states :0
+	/*function subStuff(bool:Bool)
+	{
+		var blackStuff:FlxSprite;
+
+		if (bool) {
+			blackStuff = new FlxSprite(0, 0).makeGraphic(1280, FlxG.height - 500, FlxColor.BLACK);
+			blackStuff.alpha = 0.6;
+			blackStuff.scrollFactor.set();
+			add(blackStuff);
+		}
+
+		return bool;
+	}*/
 
 	private function positionHighscore() {
 		scoreText.x = FlxG.width - scoreText.width - 6;

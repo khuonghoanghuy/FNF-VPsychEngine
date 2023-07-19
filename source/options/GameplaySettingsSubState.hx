@@ -21,28 +21,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
-		var option:Option = new Option('Downscroll', //Name
-			'If checked, notes go Down instead of Up, simple enough.', //Description
-			'downScroll', //Save data variable name
-			'bool', //Variable type
-			false); //Default value
-		addOption(option);
-
-		var option:Option = new Option('Middlescroll',
-			'If checked, your notes get centered.',
-			'middleScroll',
-			'bool',
-			false);
-		addOption(option);
-
-		var option:Option = new Option('Opponent Notes',
-			'If unchecked, opponent notes get hidden.',
-			'opponentStrums',
-			'bool',
-			true);
-		addOption(option);
-
 		var option:Option = new Option('Ghost Tapping',
 			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",
 			'ghostTapping',
@@ -50,9 +28,47 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		//I'd suggest using "Downscroll" as an example for making your own option since it is the simplest here
+		var option:Option = new Option('Downscroll', //Name
+			'If checked, notes go Down instead of Up, simple enough.', //Description
+			'downScroll', //Save data variable name
+			'bool', //Variable type
+			false); //Default value
+		addOption(option);
+	
+		var option:Option = new Option('Middlescroll',
+			'If checked, your notes get centered.',
+			'middleScroll',
+			'bool',
+			false);
+		addOption(option);
+	
+		var option:Option = new Option('Opponent Notes',
+			'If unchecked, opponent notes get hidden.',
+			'opponentStrums',
+			'bool',
+			true);
+		addOption(option);
+
+		var option:Option = new Option('Display Score Type: ',
+			'Accuracy and Rating type, as same but the rank is not',
+			'ratingType',
+			'string',
+			'Rating',
+			['Accuracy', 'Rating']);
+		addOption(option);
+		option.onChange = onChangeRatingType;
+
 		var option:Option = new Option('Disable Reset Button',
 			"If checked, pressing Reset won't do anything.",
 			'noReset',
+			'bool',
+			false);
+		addOption(option);
+
+		var option:Option = new Option('NPS Text',
+			'If checked, nps will display about your speed hit.',
+			'npsText',
 			'bool',
 			false);
 		addOption(option);
@@ -131,5 +147,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	function onChangeHitsoundVolume()
 	{
 		FlxG.sound.play(Paths.sound('hitsound'), ClientPrefs.hitsoundVolume);
+	}
+
+	function onChangeRatingType()
+	{
+		ClientPrefs.ratingType = ClientPrefs.ratingType;
 	}
 }

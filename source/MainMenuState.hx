@@ -25,7 +25,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var VPsychVer:String = '0.1.0'; //This is also used for Discord RPC
+	public static var VPsychVer:String = '0.1.0-Beta'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -33,6 +33,22 @@ class MainMenuState extends MusicBeatState
 	private var camAchievement:FlxCamera;
 	
 	var optionShit:Array<String> = [];
+	
+	// [x, y] if needed!
+	public var xStoryMode:Float;
+	public var yStoryMode:Float;
+	public var xFreeplayMode:Float;
+	public var yFreeplayMode:Float;
+	public var xDonate:Float;
+	public var yDonate:Float;
+	public var xAdwars:Float;
+	public var yAdwars:Float;
+	public var xCredits:Float;
+	public var yCredits:Float;
+	public var xMods:Float;
+	public var yMods:Float;
+	public var xOptions:Float;
+	public var yOptions:Float;
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -42,6 +58,7 @@ class MainMenuState extends MusicBeatState
 	override function create()
 	{
         optionShit = CoolUtil.coolTextFile(Paths.txt("mainMenu"));
+		// postionShit = CoolUtil.coolTextFile(Paths.txt("mainMenuPos"));
 		
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
@@ -112,7 +129,8 @@ class MainMenuState extends MusicBeatState
 			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
 			menuItem.animation.play('idle');
 			menuItem.ID = i;
-			menuItem.screenCenter(X);
+			menuItem.x += Std.parseFloat(CoolUtil.coolStringFile(Paths.txt("mainMenuX")));
+			// menuItem.screenCenter(X);
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
 			if(optionShit.length < 6) scr = 0;
@@ -258,10 +276,10 @@ class MainMenuState extends MusicBeatState
 
 		super.update(elapsed);
 
-		menuItems.forEach(function(spr:FlxSprite)
+		/*menuItems.forEach(function(spr:FlxSprite)
 		{
 			spr.screenCenter(X);
-		});
+		});*/
 	}
 
 	function changeItem(huh:Int = 0)

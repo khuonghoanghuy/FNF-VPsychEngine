@@ -270,8 +270,14 @@ class PlayState extends MusicBeatState
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
+	public var npsTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
+
+	var nps:Int = 0;
+	var maxNPS:Int = 0;
+
+	var judgenmentCounterTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
@@ -1134,6 +1140,13 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
+		judgenmentCounterTxt = new FlxText(40, FlxG.height - 400, 0, "", 20);
+		judgenmentCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgenmentCounterTxt.scrollFactor.set();
+		judgenmentCounterTxt.borderSize = 1.25;
+		judgenmentCounterTxt.visible = !ClientPrefs.hideHud;
+		add(judgenmentCounterTxt);
+
 		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
@@ -1159,6 +1172,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		judgenmentCounterTxt.cameras = [camHUD];
 		botplayTxt.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
@@ -2254,6 +2268,18 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	public function updateJud(iftrue:Bool = false)
+	{
+		switch (ClientPrefs.judgementStuff)
+		{
+			case "Simple":
+				judgenmentCounterTxt.text = 'Sick: ' + sicks + '\nGood: ' + goods + "\nBad: " + bads + "\nShit: " + shits;
+
+			case "Advanced":
+				judgenmentCounterTxt.text = 'Combo: ' + combo + '\nSick: ' + sicks + '\nGood: ' + goods + "\nBad: " + bads + "\nShit: " + shits + "\nMisses: " + songMisses;
+		}
+	}
+
 	public function updateScore(miss:Bool = false)
 	{
 		scoreTxt.text = 'Score: ' + songScore
@@ -2815,6 +2841,8 @@ class PlayState extends MusicBeatState
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
 
+	var notesHitArray:Array<Date> = [];
+
 	override public function update(elapsed:Float)
 	{
 		/*if (FlxG.keys.justPressed.NINE)
@@ -3131,19 +3159,19 @@ class PlayState extends MusicBeatState
 					{
 						var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
 						if(!daNote.mustPress) strumGroup = opponentStrums;
-
+	
 						var strumX:Float = strumGroup.members[daNote.noteData].x;
 						var strumY:Float = strumGroup.members[daNote.noteData].y;
 						var strumAngle:Float = strumGroup.members[daNote.noteData].angle;
 						var strumDirection:Float = strumGroup.members[daNote.noteData].direction;
 						var strumAlpha:Float = strumGroup.members[daNote.noteData].alpha;
 						var strumScroll:Bool = strumGroup.members[daNote.noteData].downScroll;
-
+	
 						strumX += daNote.offsetX;
 						strumY += daNote.offsetY;
 						strumAngle += daNote.offsetAngle;
 						strumAlpha *= daNote.multAlpha;
-
+	
 						if (strumScroll) //Downscroll
 						{
 							//daNote.y = (strumY + 0.45 * (Conductor.songPosition - daNote.strumTime) * songSpeed);
@@ -3154,21 +3182,23 @@ class PlayState extends MusicBeatState
 							//daNote.y = (strumY - 0.45 * (Conductor.songPosition - daNote.strumTime) * songSpeed);
 							daNote.distance = (-0.45 * (Conductor.songPosition - daNote.strumTime) * songSpeed * daNote.multSpeed);
 						}
-
+	
 						var angleDir = strumDirection * Math.PI / 180;
 						if (daNote.copyAngle)
 							daNote.angle = strumDirection - 90 + strumAngle;
-
+	
 						if(daNote.copyAlpha)
 							daNote.alpha = strumAlpha;
-
+	
 						if(daNote.copyX)
 							daNote.x = strumX + Math.cos(angleDir) * daNote.distance;
-
+	
+						var floatCenter:Float = Std.parseInt(CoolUtil.coolStringFile(Paths.txt("floatCenter")));
+						
 						if(daNote.copyY)
 						{
 							daNote.y = strumY + Math.sin(angleDir) * daNote.distance;
-
+	
 							//Jesus fuck this took me so much mother fucking time AAAAAAAAAA
 							if(strumScroll && daNote.isSustainNote)
 							{
@@ -3181,16 +3211,16 @@ class PlayState extends MusicBeatState
 										daNote.y -= 19;
 									}
 								}
-								daNote.y += (Note.swagWidth / 2) - (60.5 * (songSpeed - 1));
+								daNote.y += (Note.swagWidth / 4) - (60.5 * (songSpeed - 1));
 								daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (songSpeed - 1);
 							}
 						}
-
+	
 						if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 						{
 							opponentNoteHit(daNote);
 						}
-
+	
 						if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
 							if(daNote.isSustainNote) {
 								if(daNote.canBeHit) {
@@ -3200,8 +3230,8 @@ class PlayState extends MusicBeatState
 								goodNoteHit(daNote);
 							}
 						}
-
-						var center:Float = strumY + Note.swagWidth / 2;
+	
+						var center:Float = strumY + Note.swagWidth / floatCenter;
 						if(strumGroup.members[daNote.noteData].sustainReduce && daNote.isSustainNote && (daNote.mustPress || !daNote.ignoreNote) &&
 							(!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
 						{
@@ -3212,7 +3242,7 @@ class PlayState extends MusicBeatState
 									var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight);
 									swagRect.height = (center - daNote.y) / daNote.scale.y;
 									swagRect.y = daNote.frameHeight - swagRect.height;
-
+	
 									daNote.clipRect = swagRect;
 								}
 							}
@@ -3223,27 +3253,27 @@ class PlayState extends MusicBeatState
 									var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
 									swagRect.y = (center - daNote.y) / daNote.scale.y;
 									swagRect.height -= swagRect.y;
-
+	
 									daNote.clipRect = swagRect;
 								}
 							}
 						}
 
-						// Kill extremely late notes and cause misses
-						if (Conductor.songPosition > noteKillOffset + daNote.strumTime)
-						{
-							if (daNote.mustPress && !cpuControlled &&!daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit)) {
-								noteMiss(daNote);
-							}
-
-							daNote.active = false;
-							daNote.visible = false;
-
-							daNote.kill();
-							notes.remove(daNote, true);
-							daNote.destroy();
+					// Kill extremely late notes and cause misses
+					if (Conductor.songPosition > noteKillOffset + daNote.strumTime)
+					{
+						if (daNote.mustPress && !cpuControlled &&!daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit)) {
+							noteMiss(daNote);
 						}
-					});
+
+						daNote.active = false;
+						daNote.visible = false;
+
+						daNote.kill();
+						notes.remove(daNote, true);
+						daNote.destroy();
+					}
+				});
 				}
 				else
 				{
@@ -4032,6 +4062,7 @@ class PlayState extends MusicBeatState
 
 	public var totalPlayed:Int = 0;
 	public var totalNotesHit:Float = 0.0;
+	var comboCount:Int = 0;
 
 	public var showCombo:Bool = false;
 	public var showComboNum:Bool = true;
@@ -4237,6 +4268,7 @@ class PlayState extends MusicBeatState
 		 */
 
 		coolText.text = Std.string(seperatedScore);
+		comboCount++;
 		// add(coolText);
 
 		FlxTween.tween(rating, {alpha: 0}, 0.2 / playbackRate, {
@@ -4469,6 +4501,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 		combo = 0;
+		comboCount = 0;
 		health -= daNote.missHealth * healthLoss;
 		
 		if(instakillOnMiss)
@@ -4477,8 +4510,6 @@ class PlayState extends MusicBeatState
 			doDeathCheck(true);
 		}
 
-		//For testing purposes
-		//trace(daNote.missHealth);
 		songMisses++;
 		vocals.volume = 0;
 		if(!practiceMode) songScore -= 10;
@@ -4632,6 +4663,8 @@ class PlayState extends MusicBeatState
 				if(combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
+			else if (ClientPrefs.ratingType == "Accuracy") totalNotesHit += 1;
+
 			health += note.hitHealth * healthGain;
 
 			if(!note.noAnimation) {
@@ -5218,9 +5251,13 @@ class PlayState extends MusicBeatState
 			else if (songMisses >= 10) ratingFC = "Clear";
 		}
 		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce -Ghost
+		
 		setOnLuas('rating', ratingPercent);
 		setOnLuas('ratingName', ratingName);
 		setOnLuas('ratingFC', ratingFC);
+
+		if (ClientPrefs.judgementStuff != "None")
+			updateJud(true);
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
