@@ -270,8 +270,12 @@ class PlayState extends MusicBeatState
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
 	public var scoreTxt:FlxText;
+	public var npsTxt:FlxText;
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
+
+	var nps:Int = 0;
+	var maxNPS:Int = 0;
 
 	var judgenmentCounterTxt:FlxText;
 
@@ -2836,6 +2840,8 @@ class PlayState extends MusicBeatState
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
+
+	var notesHitArray:Array<Date> = [];
 
 	override public function update(elapsed:Float)
 	{
