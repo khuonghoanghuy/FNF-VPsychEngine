@@ -55,6 +55,8 @@ class MainMenuState extends MusicBeatState
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
 
+	var boyfriend:FlxSprite;
+
 	override function create()
 	{
         optionShit = CoolUtil.coolTextFile(Paths.txt("mainMenu"));
@@ -141,6 +143,15 @@ class MainMenuState extends MusicBeatState
 		}
 
 		FlxG.camera.follow(camFollowPos, null, 1);
+
+		boyfriend = new FlxSprite(840, 170);
+		boyfriend.frames = Paths.getSparrowAtlas("characters/BOYFRIEND");
+		boyfriend.animation.addByPrefix('idle', 'BF idle dance');
+		// boyfriend.setGraphicSize(Std.int(boyfriend.width * 0.75));
+		boyfriend.updateHitbox();
+		boyfriend.animation.play("idle");
+		// boyfriend.dance();
+		add(boyfriend);
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "VPsych Engine v" + VPsychVer, 12);
 		versionShit.scrollFactor.set();
