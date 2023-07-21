@@ -141,6 +141,16 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		addOption(option);
 
+		var option:Option = new Option('Gameplay UI Type: ',
+			"Change UI from Psych to Kade and Other",
+			"uiHUD",
+			'string',
+			'Psych',
+			['Kade', 'Psych', 'Base', 'Forever', 'FPS Plus', 'Andromeda'] // so much
+		);
+		addOption(option);
+		option.onChange = onChangeUI;
+
 		super();
 	}
 
@@ -152,5 +162,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	function onChangeRatingType()
 	{
 		ClientPrefs.ratingType = ClientPrefs.ratingType;
+	}
+
+	function onChangeUI()
+	{
+		ClientPrefs.uiHUD = ClientPrefs.uiHUD;
 	}
 }

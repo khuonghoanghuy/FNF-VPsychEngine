@@ -1147,10 +1147,43 @@ class PlayState extends MusicBeatState
 		judgenmentCounterTxt.visible = !ClientPrefs.hideHud;
 		add(judgenmentCounterTxt);
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.scrollFactor.set();
-		scoreTxt.borderSize = 1.25;
+		switch (ClientPrefs.uiHUD.toLowerCase()) 
+		{
+			case "psych":
+				scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
+				scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				scoreTxt.scrollFactor.set();
+				scoreTxt.borderSize = 1.25;
+
+			case "andromeda":
+				scoreTxt = new FlxText(healthBar.x + healthBar.width / 2 - 150, healthBar.y + 25, 0, "", 20);
+				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				scoreTxt.scrollFactor.set();
+
+			case "fps plus":
+				scoreTxt = new FlxText(healthBarBG.x - 105, (FlxG.height * 0.9) + 36, 800, "", 22);
+				scoreTxt.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				scoreTxt.scrollFactor.set();
+
+			case "base":
+				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
+				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				scoreTxt.scrollFactor.set();
+
+			case "kade":
+				scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
+				scoreTxt.screenCenter(X);
+				scoreTxt.scrollFactor.set();
+				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				// if (!FlxG.save.data.healthBar)
+				scoreTxt.y = healthBarBG.y;
+
+			case "Forever":
+				scoreTxt = new FlxText(FlxG.width / 2, healthBarBG.y + 40, 0, "", 20);
+				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				scoreTxt.scrollFactor.set();	
+		}
+
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
