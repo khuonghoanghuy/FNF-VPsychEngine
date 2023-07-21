@@ -66,11 +66,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('NPS Text',
-			'If checked, nps will display about your speed hit.',
-			'npsText',
-			'bool',
-			false);
+		var option:Option = new Option('Auto Zoom',
+			'If checked, cam will auto zoom without watting something hitting a note.',
+			'autoZoom',
+			'bool', 
+			false); 
 		addOption(option);
 
 		var option:Option = new Option('Hitsound Volume',
@@ -141,8 +141,17 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		addOption(option);
 
+		var option:Option = new Option('Icon Beat Type: ', 
+			"What icon beat type do you prefer?", 
+			'iconBeatType', 
+			'string', 
+			'Psych', 
+			['Style 1', 'Style 2', 'Base', 'Without Util', 'Psych']);
+		addOption(option);
+		option.onChange = onChangeIconBeat;
+
 		var option:Option = new Option('Gameplay UI Type: ',
-			"Change UI from Psych to Kade and Other",
+			"Change UI from Psych to Kade and Other.",
 			"uiHUD",
 			'string',
 			'Psych',
@@ -167,5 +176,10 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 	function onChangeUI()
 	{
 		ClientPrefs.uiHUD = ClientPrefs.uiHUD;
+	}
+
+	function onChangeIconBeat()
+	{
+		ClientPrefs.iconBeatType = ClientPrefs.iconBeatType;
 	}
 }

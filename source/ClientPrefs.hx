@@ -42,6 +42,7 @@ class ClientPrefs {
 	public static var uiHUD:String = "Psych";
 
 	public static var enableQS:Bool = true;
+	public static var autoZoom:Bool = false;
 
 	public static var count:Int = 0;
 
@@ -149,6 +150,7 @@ class ClientPrefs {
 		FlxG.save.data.enableQS = enableQS;
 		FlxG.save.data.npsText = npsText;
 		FlxG.save.data.uiHUD = uiHUD;
+		FlxG.save.data.autoZoom = autoZoom;
 	
 		FlxG.save.flush();
 
@@ -237,6 +239,7 @@ class ClientPrefs {
 
 		if (FlxG.save.data.npsText != null) npsText = FlxG.save.data.npsText;
 		if (FlxG.save.data.uiHUD != null) uiHUD = FlxG.save.data.uiHUD;
+		if (FlxG.save.data.autoZoom != null) autoZoom = FlxG.save.data.autoZoom;
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls_v2', CoolUtil.getSavePath());

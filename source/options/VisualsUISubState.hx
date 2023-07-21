@@ -102,15 +102,6 @@ class VisualsUISubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Icon Beat Type: ', 
-			"What icon beat type do you prefer?", 
-			'iconBeatType', 
-			'string', 
-			'Psych', 
-			['Style 1', 'Psych']);
-		addOption(option);
-		option.onChange = onChangeIconBeat;
-
 		var option:Option = new Option('Judgement Counter Type: ',
 			"A Judgement Counter without lua stuff :)",
 			'judgementStuff',
@@ -145,11 +136,6 @@ class VisualsUISubState extends BaseOptionsMenu
 	{
 		if(Main.fpsVar != null)
 			Main.fpsVar.visible = ClientPrefs.showFPS;
-	}
-
-	function onChangeIconBeat()
-	{
-		ClientPrefs.iconBeatType = ClientPrefs.iconBeatType;
 	}
 
 	function onChangeJudCounter()
