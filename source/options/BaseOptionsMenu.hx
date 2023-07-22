@@ -178,7 +178,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 							switch(curOption.type)
 							{
-								case 'int' | 'float' | 'percent':
+								case 'int' | 'float' | 'percent' | 'super_float':
 									holdValue = curOption.getValue() + add;
 									if(holdValue < curOption.minValue) holdValue = curOption.minValue;
 									else if (holdValue > curOption.maxValue) holdValue = curOption.maxValue;
@@ -189,7 +189,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 											holdValue = Math.round(holdValue);
 											curOption.setValue(holdValue);
 
-										case 'float' | 'percent':
+										case 'float' | 'percent' | 'super_float':
 											holdValue = FlxMath.roundDecimal(holdValue, curOption.decimals);
 											curOption.setValue(holdValue);
 									}
@@ -222,7 +222,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 								case 'int':
 									curOption.setValue(Math.round(holdValue));
 								
-								case 'float' | 'percent':
+								case 'float' | 'percent' | 'super_float':
 									curOption.setValue(FlxMath.roundDecimal(holdValue, curOption.decimals));
 							}
 							updateTextFrom(curOption);

@@ -1,4 +1,4 @@
-package;
+package playState;
 
 import flixel.graphics.FlxGraphic;
 #if desktop
@@ -79,12 +79,63 @@ import sys.io.File;
 
 using StringTools;
 
+typedef PostionCore = {
+    
+	var iconP1X:Float;
+    var iconP1Y:Float;
+	var iconP2X:Float;
+    var iconP2Y:Float;
+
+    var scoreX:Float;
+    var scoreY:Float;
+    var scoreW:Float;
+	var scoreAlign:String;
+    var timeBarX:Float;
+    var timeBarY:Float;
+    var botplayX:Float;
+    var botplayY:Float;
+    var botplayW:Float;
+    var botplayTXT:String;
+    var judgenmentCounterX:Float;
+    var judgenmentCounterY:Float;
+	var strumX:Int;
+	var strumAsMiddleScroll:Int;
+	
+	var rat1:String;
+	var rat1_1:Float;
+	var rat2:String;
+	var rat2_2:Float;
+	var rat3:String;
+	var rat3_3:Float;
+	var rat4:String;
+	var rat4_4:Float;
+	var rat5:String;
+	var rat5_5:Float;
+	var rat6:String;
+	var rat6_6:Float;
+	var rat7:String;
+	var rat7_7:Float;
+	var rat8:String;
+	var rat8_8:Float;
+	var rat9:String;
+	var rat9_9:Float;
+	var rat10:String;
+	var rat10_10:Float;
+
+	var scaleText:Float;
+	
+	var sickScore:Int;
+	var goodScore:Int;
+	var badScore:Int;
+	var shitScore:Int;
+}
+
 class PlayState extends MusicBeatState
 {
-	public static var STRUM_X = 42;
-	public static var STRUM_X_MIDDLESCROLL = -278;
+	public static var STRUM_X = 0;
+	public static var STRUM_X_MIDDLESCROLL = 0;
 
-	public static var ratingStuff:Array<Dynamic> = [
+	/*public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
 		['Shit', 0.4], //From 20% to 39%
 		['Bad', 0.5], //From 40% to 49%
@@ -95,7 +146,8 @@ class PlayState extends MusicBeatState
 		['Great', 0.9], //From 80% to 89%
 		['Sick!', 1], //From 90% to 99%
 		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
-	];
+	];*/
+	public static var ratingStuff:Array<Dynamic> = [];
 
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
@@ -279,6 +331,11 @@ class PlayState extends MusicBeatState
 
 	var judgenmentCounterTxt:FlxText;
 
+	/**
+		Most Powerful code (i think)
+	**/
+	var jsonShit:PostionCore;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -335,8 +392,27 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		//trace('Playback Rate: ' + playbackRate);
+		jsonShit = Json.parse(Paths.getTextFromFile('data/guiJSON.json'));
 		Paths.clearStoredMemory();
+		ClientPrefs.scaleTextZoom = jsonShit.scaleText;
+		
+		STRUM_X = jsonShit.strumX;
+		STRUM_X_MIDDLESCROLL = jsonShit.strumAsMiddleScroll;
+
+		// wow, alot
+		// tut: 'jsonShit.rat1', 'jsonShit.rat1_1' and to the other
+		ratingStuff = [
+			[jsonShit.rat1, jsonShit.rat1_1],
+			[jsonShit.rat2, jsonShit.rat2_2],
+			[jsonShit.rat3, jsonShit.rat3_3],
+			[jsonShit.rat4, jsonShit.rat4_4],
+			[jsonShit.rat5, jsonShit.rat5_5],
+			[jsonShit.rat6, jsonShit.rat6_6],
+			[jsonShit.rat7, jsonShit.rat7_7],
+			[jsonShit.rat8, jsonShit.rat8_8],
+			[jsonShit.rat9, jsonShit.rat9_9],
+			[jsonShit.rat10,jsonShit.rat10_10]
+		];
 
 		// for lua
 		instance = this;
@@ -362,22 +438,23 @@ class PlayState extends MusicBeatState
 
 		//Ratings
 		ratingsData.push(new Rating('sick')); //default rating
+		// ratingsData.score = jsonShit.sickScore;
 
 		var rating:Rating = new Rating('good');
 		rating.ratingMod = 0.7;
-		rating.score = 200;
+		rating.score = jsonShit.goodScore;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
 		var rating:Rating = new Rating('bad');
 		rating.ratingMod = 0.4;
-		rating.score = 100;
+		rating.score = jsonShit.badScore;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
 		var rating:Rating = new Rating('shit');
 		rating.ratingMod = 0;
-		rating.score = 50;
+		rating.score = jsonShit.shitScore;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
@@ -398,7 +475,7 @@ class PlayState extends MusicBeatState
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
-		camGame = new FlxCamera();
+		camGame = new SwagCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
@@ -1128,33 +1205,45 @@ class PlayState extends MusicBeatState
 		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - 75;
+		iconP1.y = healthBar.y - jsonShit.iconP1Y;
+		iconP1.x = jsonShit.iconP1X;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP2.y = healthBar.y - 75;
+		iconP2.y = healthBar.y - jsonShit.iconP2Y;
+		iconP2.x = jsonShit.iconP2X;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		reloadHealthBarColors();
 
-		judgenmentCounterTxt = new FlxText(40, FlxG.height - 400, 0, "", 20);
+		judgenmentCounterTxt = new FlxText(jsonShit.judgenmentCounterX, jsonShit.judgenmentCounterY, 0, "", 20);
 		judgenmentCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgenmentCounterTxt.scrollFactor.set();
 		judgenmentCounterTxt.borderSize = 1.25;
 		judgenmentCounterTxt.visible = !ClientPrefs.hideHud;
 		add(judgenmentCounterTxt);
 
-		scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt = new FlxText(jsonShit.scoreX, jsonShit.scoreY, jsonShit.scoreW, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, jsonShit.scoreAlign, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
+		
+		switch (jsonShit.scoreAlign)
+		{
+			case "left" | "LEFT":
+				scoreTxt.alignment = LEFT;
+			case "right" | "RIGHT":
+				scoreTxt.alignment = RIGHT;
+			case "center" | "CENTER":
+				scoreTxt.alignment = CENTER;
+		}
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(jsonShit.botplayX, jsonShit.botplayY, 0, jsonShit.botplayTXT, 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -2292,14 +2381,15 @@ class PlayState extends MusicBeatState
 			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
-			scoreTxt.scale.x = 1.075;
-			scoreTxt.scale.y = 1.075;
+			scoreTxt.scale.x = ClientPrefs.scaleTextZoom;
+			scoreTxt.scale.y = ClientPrefs.scaleTextZoom;
 			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
 				}
 			});
 		}
+
 		callOnLuas('onUpdateScore', [miss]);
 	}
 
@@ -2339,7 +2429,9 @@ class PlayState extends MusicBeatState
 
 	function startSong():Void
 	{
-		startingSong = false;
+		startingSong = false;	
+
+		if (ClientPrefs.autoZoom) camZooming = true;
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
@@ -2845,10 +2937,6 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		/*if (FlxG.keys.justPressed.NINE)
-		{
-			iconP1.swapOldIcon();
-		}*/
 		callOnLuas('onUpdate', [elapsed]);
 
 		switch (curStage)
@@ -3017,16 +3105,44 @@ class PlayState extends MusicBeatState
 			openChartEditor();
 		}
 
-		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
-		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
-
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		iconP1.scale.set(mult, mult);
-		iconP1.updateHitbox();
+		if (ClientPrefs.iconBeatType == "Without Util")
+		{
+			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
+			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
 	
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		iconP2.scale.set(mult, mult);
-		iconP2.updateHitbox();
+			iconP1.updateHitbox();
+			iconP2.updateHitbox();
+		}
+		else if (ClientPrefs.iconBeatType == "Style 2")
+		{
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP1.scale.set(mult, 1);
+			iconP1.updateHitbox();
+		
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP2.scale.set(mult, 1);
+			iconP2.updateHitbox();
+		}
+		else if (ClientPrefs.iconBeatType == "Base")
+		{
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
+
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
+		}
+		else
+		{
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
+		
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			iconP2.scale.set(mult, mult);
+			iconP2.updateHitbox();
+		}
 
 		var iconOffset:Int = 26;
 
@@ -3058,8 +3174,7 @@ class PlayState extends MusicBeatState
 			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
 		
-		if (startedCountdown)
-		{
+		if (startedCountdown) {
 			Conductor.songPosition += FlxG.elapsed * 1000 * playbackRate;
 		}
 
@@ -4569,7 +4684,7 @@ class PlayState extends MusicBeatState
 
 	function opponentNoteHit(note:Note):Void
 	{
-		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
+		if (Paths.formatToSongPath(SONG.song) != 'tutorial' && !ClientPrefs.autoZoom)
 			camZooming = true;
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
@@ -5005,12 +5120,12 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		if (ClientPrefs.iconBeatType == 'Style 1') 
+		if (ClientPrefs.iconBeatType != 'Psych') 
 		{
 			iconP1.setGraphicSize(Std.int(iconP1.width + 30));
 			iconP2.setGraphicSize(Std.int(iconP2.width + 30));
 		}
-		else
+		else if (ClientPrefs.iconBeatType == 'Psych')
 		{
 			iconP1.scale.set(1.2, 1.2);
 			iconP2.scale.set(1.2, 1.2);

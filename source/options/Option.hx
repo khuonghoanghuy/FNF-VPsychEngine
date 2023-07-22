@@ -46,6 +46,8 @@ class Option
 					defaultValue = false;
 				case 'int' | 'float':
 					defaultValue = 0;
+				case 'super_float':
+					defaultValue = 0.000;
 				case 'percent':
 					defaultValue = 1;
 				case 'string':
@@ -75,6 +77,9 @@ class Option
 				maxValue = 1;
 				scrollSpeed = 0.5;
 				decimals = 2;
+
+			case 'super_float':
+				changeValue = 0.001;
 		}
 	}
 
@@ -120,7 +125,7 @@ class Option
 		var newValue:String = 'bool';
 		switch(type.toLowerCase().trim())
 		{
-			case 'int' | 'float' | 'percent' | 'string': newValue = type;
+			case 'int' | 'float' | 'percent' | 'string' | 'super_float': newValue = type;
 			case 'integer': newValue = 'int';
 			case 'str': newValue = 'string';
 			case 'fl': newValue = 'float';

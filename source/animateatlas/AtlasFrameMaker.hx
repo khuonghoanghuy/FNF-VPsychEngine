@@ -23,6 +23,7 @@ import js.html.FileSystem;
 import js.html.File;
 #end
 #end
+import playState.PlayState;
 
 using StringTools;
 class AtlasFrameMaker extends FlxFramesCollection
