@@ -79,12 +79,51 @@ import sys.io.File;
 
 using StringTools;
 
+typedef PostionCore = {
+    var iconX:Float;
+    var iconY:Float;
+    var scoreX:Float;
+    var scoreY:Float;
+    var scoreW:Float;
+    var timeBarX:Float;
+    var timeBarY:Float;
+    var botplayX:Float;
+    var botplayY:Float;
+    var botplayW:Float;
+    var botplayTXT:String;
+    var judgenmentCounterX:Float;
+    var judgenmentCounterY:Float;
+	var strumX:Int;
+	var strumAsMiddleScroll:Int;
+	
+	var rat1:String;
+	var rat1_1:Float;
+	var rat2:String;
+	var rat2_2:Float;
+	var rat3:String;
+	var rat3_3:Float;
+	var rat4:String;
+	var rat4_4:Float;
+	var rat5:String;
+	var rat5_5:Float;
+	var rat6:String;
+	var rat6_6:Float;
+	var rat7:String;
+	var rat7_7:Float;
+	var rat8:String;
+	var rat8_8:Float;
+	var rat9:String;
+	var rat9_9:Float;
+	var rat10:String;
+	var rat10_10:Float;
+}
+
 class PlayState extends MusicBeatState
 {
-	public static var STRUM_X = 42;
-	public static var STRUM_X_MIDDLESCROLL = -278;
+	public static var STRUM_X = 0;
+	public static var STRUM_X_MIDDLESCROLL = 0;
 
-	public static var ratingStuff:Array<Dynamic> = [
+	/*public static var ratingStuff:Array<Dynamic> = [
 		['You Suck!', 0.2], //From 0% to 19%
 		['Shit', 0.4], //From 20% to 39%
 		['Bad', 0.5], //From 40% to 49%
@@ -95,7 +134,8 @@ class PlayState extends MusicBeatState
 		['Great', 0.9], //From 80% to 89%
 		['Sick!', 1], //From 90% to 99%
 		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
-	];
+	];*/
+	public static var ratingStuff:Array<Dynamic> = [];
 
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
@@ -279,6 +319,11 @@ class PlayState extends MusicBeatState
 
 	var judgenmentCounterTxt:FlxText;
 
+	/**
+		Most Powerful code (i think)
+	**/
+	var jsonShit:PostionCore;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -335,8 +380,26 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
-		//trace('Playback Rate: ' + playbackRate);
+		jsonShit = Json.parse(Paths.getTextFromFile('data/guiJSON.json'));
 		Paths.clearStoredMemory();
+		
+		STRUM_X = jsonShit.strumX;
+		STRUM_X_MIDDLESCROLL = jsonShit.strumAsMiddleScroll;
+
+		// wow, alot
+		// tut: 'rat1', 'rat1_1' and to the other
+		ratingStuff = [
+			[rat1, rat1_1],
+			[rat2, rat2_2],
+			[rat3, rat3_3],
+			[rat4, rat4_4],
+			[rat5, rat5_5],
+			[rat6, rat6_6],
+			[rat7, rat7_7],
+			[rat8, rat8_8],
+			[rat9, rat9_9],
+			[rat10, rat10_10]
+		];
 
 		// for lua
 		instance = this;
@@ -1128,61 +1191,35 @@ class PlayState extends MusicBeatState
 		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - 75;
+		iconP1.y = healthBar.y - jsonShit.iconY;
+		iconP1.x = jsonShit.scoreX;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP2.y = healthBar.y - 75;
+		iconP1.y = healthBar.y - jsonShit.iconY;
+		iconP1.x = jsonShit.scoreX;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		reloadHealthBarColors();
 
-		judgenmentCounterTxt = new FlxText(40, FlxG.height - 400, 0, "", 20);
+		judgenmentCounterTxt = new FlxText(jsonShit.judgenmentCounterX, jsonShit.judgenmentCounterY, 0, "", 20);
 		judgenmentCounterTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		judgenmentCounterTxt.scrollFactor.set();
 		judgenmentCounterTxt.borderSize = 1.25;
 		judgenmentCounterTxt.visible = !ClientPrefs.hideHud;
 		add(judgenmentCounterTxt);
 
-		switch (ClientPrefs.uiHUD.toLowerCase()) 
-		{
-			case "psych":
-				scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-				scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				scoreTxt.scrollFactor.set();
-				scoreTxt.borderSize = 1.25;
-
-			case "andromeda":
-				scoreTxt = new FlxText(healthBar.x + healthBar.width / 2 - 150, healthBar.y + 25, 0, "", 20);
-				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				scoreTxt.scrollFactor.set();
-
-			case "fps plus":
-				scoreTxt = new FlxText(healthBarBG.x - 105, (FlxG.height * 0.9) + 36, 800, "", 22);
-				scoreTxt.setFormat(Paths.font("vcr.ttf"), 22, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				scoreTxt.scrollFactor.set();
-
-			case "base":
-				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				scoreTxt.scrollFactor.set();
-
-			case "kade":
-				scoreTxt = new FlxText(FlxG.width / 2 - 235, healthBarBG.y + 50, 0, "", 20);
-				scoreTxt.screenCenter(X);
-				scoreTxt.scrollFactor.set();
-				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				// if (!FlxG.save.data.healthBar)
-				scoreTxt.y = healthBarBG.y;
-		}
-
+		scoreTxt = new FlxText(jsonShit.scoreX, jsonShit.scoreY, jsonShit.scoreW, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.scrollFactor.set();
+		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(jsonShit.botplayX, jsonShit.botplayY, 0, jsonShit.botplayTXT, 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
