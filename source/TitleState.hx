@@ -116,7 +116,11 @@ class TitleState extends MusicBeatState
 		FlxG.sound.muteKeys = muteKeys;
 		FlxG.sound.volumeDownKeys = volumeDownKeys;
 		FlxG.sound.volumeUpKeys = volumeUpKeys;
+		#if android
+		FlxG.android.preventDefaultKeys = [BACK];
+		#else
 		FlxG.keys.preventDefaultKeys = [TAB];
+		#end
 
 		PlayerSettings.init();
 
@@ -438,7 +442,7 @@ class TitleState extends MusicBeatState
 			Conductor.songPosition = FlxG.sound.music.time;
 		// FlxG.watch.addQuick('amp', FlxG.sound.music.amplitude);
 
-		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
+		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT || #if android FlxG.touches.justReleased(true); #end
 
 		#if mobile
 		for (touch in FlxG.touches.list)
