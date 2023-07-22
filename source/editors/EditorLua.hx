@@ -30,6 +30,7 @@ import DialogueBoxPsych;
 #if desktop
 import Discord;
 #end
+import playState.PlayState;
 
 using StringTools;
 

@@ -8,6 +8,7 @@ import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;
 import haxe.Json;
 import haxe.format.JsonParser;
+import playState.PlayState;
 
 using StringTools;
 

@@ -14,6 +14,7 @@ import flixel.util.FlxGradient;
 import flixel.FlxState;
 import flixel.FlxCamera;
 import flixel.FlxBasic;
+import playState.PlayState;
 
 class MusicBeatState extends FlxUIState
 {

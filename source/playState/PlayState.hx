@@ -1,4 +1,4 @@
-package;
+package playState;
 
 import flixel.graphics.FlxGraphic;
 #if desktop
@@ -2315,10 +2315,8 @@ class PlayState extends MusicBeatState
 
 	public function updateScore(miss:Bool = false)
 	{
-		scoreTxt.text = 'Score: ' + songScore
-		+ ' | Misses: ' + songMisses
-		+ ' | Rating: ' + ratingName
-		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+		// accuracy not work, idk why im make tho
+		PlayCore.getScore(songScore, songMisses, 0, ratingName, ratingPercent, ratingFC);
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
@@ -3046,9 +3044,6 @@ class PlayState extends MusicBeatState
 			openChartEditor();
 		}
 
-		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
-		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
-
 		if (ClientPrefs.iconBeatType == "Without Util")
 		{
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
@@ -3065,6 +3060,16 @@ class PlayState extends MusicBeatState
 		
 			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP2.scale.set(mult, 1);
+			iconP2.updateHitbox();
+		}
+		else if (ClientPrefs.iconBeatType == "Base")
+		{
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP1.scale.set(mult, mult);
+			iconP1.updateHitbox();
+
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
+			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
 		else
@@ -5054,12 +5059,12 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		if (ClientPrefs.iconBeatType == 'Style 1') 
+		if (ClientPrefs.iconBeatType != 'Psych') 
 		{
 			iconP1.setGraphicSize(Std.int(iconP1.width + 30));
 			iconP2.setGraphicSize(Std.int(iconP2.width + 30));
 		}
-		else
+		else if (ClientPrefs.iconBeatType == 'Psych')
 		{
 			iconP1.scale.set(1.2, 1.2);
 			iconP2.scale.set(1.2, 1.2);

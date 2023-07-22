@@ -19,6 +19,7 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import openfl.events.KeyboardEvent;
 import FunkinLua;
+import playState.PlayState;
 
 using StringTools;
 

@@ -21,6 +21,7 @@ import WeekData;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
+import playState.PlayState;
 
 using StringTools;
 

@@ -37,6 +37,7 @@ import flixel.animation.FlxAnimation;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
+import playState.PlayState;
 
 using StringTools;
 
