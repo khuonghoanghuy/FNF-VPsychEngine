@@ -4,11 +4,14 @@ package options;
 import Discord.DiscordClient;
 #end
 import flixel.FlxG;
+import flixel.text.FlxText;
 
 using StringTools;
 
 class GameplaySettingsSubState extends BaseOptionsMenu
 {
+	var versionShit:FlxText;
+
 	public function new()
 	{
 		title = 'Gameplay Settings';
@@ -159,17 +162,6 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		);
 		addOption(option);
 		option.onChange = onChangeUI;
-
-		var option:Option = new Option('Scale Text Zoom',
-			"Changes how much scale zoom you want.",
-			"scaleTextZoom",
-			"float",
-			1.075);
-		option.scrollSpeed = 5;
-		option.minValue = 0;
-		option.maxValue = 2;
-		option.changeValue = 0.001;
-		addOption(option);
 
 		super();
 	}

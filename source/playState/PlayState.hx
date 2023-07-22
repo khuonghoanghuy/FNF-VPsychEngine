@@ -80,11 +80,16 @@ import sys.io.File;
 using StringTools;
 
 typedef PostionCore = {
-    var iconX:Float;
-    var iconY:Float;
+    
+	var iconP1X:Float;
+    var iconP1Y:Float;
+	var iconP2X:Float;
+    var iconP2Y:Float;
+
     var scoreX:Float;
     var scoreY:Float;
     var scoreW:Float;
+	var scoreAlign:String;
     var timeBarX:Float;
     var timeBarY:Float;
     var botplayX:Float;
@@ -116,6 +121,13 @@ typedef PostionCore = {
 	var rat9_9:Float;
 	var rat10:String;
 	var rat10_10:Float;
+
+	var scaleText:Float;
+	
+	var sickScore:Int;
+	var goodScore:Int;
+	var badScore:Int;
+	var shitScore:Int;
 }
 
 class PlayState extends MusicBeatState
@@ -382,6 +394,7 @@ class PlayState extends MusicBeatState
 	{
 		jsonShit = Json.parse(Paths.getTextFromFile('data/guiJSON.json'));
 		Paths.clearStoredMemory();
+		ClientPrefs.scaleTextZoom = jsonShit.scaleText;
 		
 		STRUM_X = jsonShit.strumX;
 		STRUM_X_MIDDLESCROLL = jsonShit.strumAsMiddleScroll;
@@ -425,22 +438,23 @@ class PlayState extends MusicBeatState
 
 		//Ratings
 		ratingsData.push(new Rating('sick')); //default rating
+		// ratingsData.score = jsonShit.sickScore;
 
 		var rating:Rating = new Rating('good');
 		rating.ratingMod = 0.7;
-		rating.score = 200;
+		rating.score = jsonShit.goodScore;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
 		var rating:Rating = new Rating('bad');
 		rating.ratingMod = 0.4;
-		rating.score = 100;
+		rating.score = jsonShit.badScore;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
 		var rating:Rating = new Rating('shit');
 		rating.ratingMod = 0;
-		rating.score = 50;
+		rating.score = jsonShit.shitScore;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
@@ -1191,15 +1205,15 @@ class PlayState extends MusicBeatState
 		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - jsonShit.iconY;
-		iconP1.x = jsonShit.scoreX;
+		iconP1.y = healthBar.y - jsonShit.iconP1Y;
+		iconP1.x = jsonShit.iconP1X;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP1.y = healthBar.y - jsonShit.iconY;
-		iconP1.x = jsonShit.scoreX;
+		iconP2.y = healthBar.y - jsonShit.iconP2Y;
+		iconP2.x = jsonShit.iconP2X;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
@@ -1213,11 +1227,21 @@ class PlayState extends MusicBeatState
 		add(judgenmentCounterTxt);
 
 		scoreTxt = new FlxText(jsonShit.scoreX, jsonShit.scoreY, jsonShit.scoreW, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, jsonShit.scoreAlign, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
 		scoreTxt.borderSize = 1.25;
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
+		
+		switch (jsonShit.scoreAlign)
+		{
+			case "left" | "LEFT":
+				scoreTxt.alignment = LEFT;
+			case "right" | "RIGHT":
+				scoreTxt.alignment = RIGHT;
+			case "center" | "CENTER":
+				scoreTxt.alignment = CENTER;
+		}
 
 		botplayTxt = new FlxText(jsonShit.botplayX, jsonShit.botplayY, 0, jsonShit.botplayTXT, 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
