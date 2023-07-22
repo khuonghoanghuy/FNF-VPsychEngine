@@ -387,18 +387,18 @@ class PlayState extends MusicBeatState
 		STRUM_X_MIDDLESCROLL = jsonShit.strumAsMiddleScroll;
 
 		// wow, alot
-		// tut: 'rat1', 'rat1_1' and to the other
+		// tut: 'jsonShit.rat1', 'jsonShit.rat1_1' and to the other
 		ratingStuff = [
-			[rat1, rat1_1],
-			[rat2, rat2_2],
-			[rat3, rat3_3],
-			[rat4, rat4_4],
-			[rat5, rat5_5],
-			[rat6, rat6_6],
-			[rat7, rat7_7],
-			[rat8, rat8_8],
-			[rat9, rat9_9],
-			[rat10, rat10_10]
+			[jsonShit.rat1, jsonShit.rat1_1],
+			[jsonShit.rat2, jsonShit.rat2_2],
+			[jsonShit.rat3, jsonShit.rat3_3],
+			[jsonShit.rat4, jsonShit.rat4_4],
+			[jsonShit.rat5, jsonShit.rat5_5],
+			[jsonShit.rat6, jsonShit.rat6_6],
+			[jsonShit.rat7, jsonShit.rat7_7],
+			[jsonShit.rat8, jsonShit.rat8_8],
+			[jsonShit.rat9, jsonShit.rat9_9],
+			[jsonShit.rat10,jsonShit.rat10_10]
 		];
 
 		// for lua
