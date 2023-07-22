@@ -160,4 +160,16 @@ class CoolUtil
 			+ '/'
 			+ FlxSave.validate(FlxG.stage.application.meta.get('file')) #end;
 	}
+
+	/**
+		Lerps camera, but accountsfor framerate shit?
+		Right now it's simply for use to change the followLerp variable of a camera during update
+		TODO LATER MAYBE:
+			Actually make and modify the scroll and lerp shit in it's own function
+			instead of solely relying on changing the lerp on the fly
+	 */
+	public static function camLerpShit(lerp:Float):Float
+	{
+		return lerp * (FlxG.elapsed / (1 / 60));
+	}
 }

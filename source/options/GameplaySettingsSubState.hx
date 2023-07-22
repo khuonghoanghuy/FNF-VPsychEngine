@@ -155,10 +155,21 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			"uiHUD",
 			'string',
 			'Psych',
-			['Kade', 'Psych', 'Base', 'Forever', 'FPS Plus', 'Andromeda'] // so much
+			['Kade', 'Psych', 'Base', 'FPS Plus', 'Andromeda'] // so much
 		);
 		addOption(option);
 		option.onChange = onChangeUI;
+
+		var option:Option = new Option('Scale Text Zoom',
+			"Changes how much scale zoom you want.",
+			"scaleTextZoom",
+			"float",
+			1.075);
+		option.scrollSpeed = 5;
+		option.minValue = 0;
+		option.maxValue = 2;
+		option.changeValue = 0.001;
+		addOption(option);
 
 		super();
 	}

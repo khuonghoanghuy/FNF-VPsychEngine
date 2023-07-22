@@ -398,7 +398,7 @@ class PlayState extends MusicBeatState
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 
 		// var gameCam:FlxCamera = FlxG.camera;
-		camGame = new FlxCamera();
+		camGame = new SwagCamera();
 		camHUD = new FlxCamera();
 		camOther = new FlxCamera();
 		camHUD.bgColor.alpha = 0;
@@ -1177,11 +1177,6 @@ class PlayState extends MusicBeatState
 				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 				// if (!FlxG.save.data.healthBar)
 				scoreTxt.y = healthBarBG.y;
-
-			case "Forever":
-				scoreTxt = new FlxText(FlxG.width / 2, healthBarBG.y + 40, 0, "", 20);
-				scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				scoreTxt.scrollFactor.set();	
 		}
 
 		scoreTxt.visible = !ClientPrefs.hideHud;
@@ -2315,22 +2310,25 @@ class PlayState extends MusicBeatState
 
 	public function updateScore(miss:Bool = false)
 	{
-		// accuracy not work, idk why im make tho
-		PlayCore.getScore(songScore, songMisses, 0, ratingName, ratingPercent, ratingFC);
+		scoreTxt.text = 'Score: ' + songScore
+		+ ' | Misses: ' + songMisses
+		+ ' | Rating: ' + ratingName
+		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 
 		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
 		{
 			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
-			scoreTxt.scale.x = 1.075;
-			scoreTxt.scale.y = 1.075;
+			scoreTxt.scale.x = ClientPrefs.scaleTextZoom;
+			scoreTxt.scale.y = ClientPrefs.scaleTextZoom;
 			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
 				}
 			});
 		}
+
 		callOnLuas('onUpdateScore', [miss]);
 	}
 
@@ -2370,7 +2368,9 @@ class PlayState extends MusicBeatState
 
 	function startSong():Void
 	{
-		startingSong = false;
+		startingSong = false;	
+
+		if (ClientPrefs.autoZoom) camZooming = true;
 
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
@@ -4623,7 +4623,7 @@ class PlayState extends MusicBeatState
 
 	function opponentNoteHit(note:Note):Void
 	{
-		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
+		if (Paths.formatToSongPath(SONG.song) != 'tutorial' && !ClientPrefs.autoZoom)
 			camZooming = true;
 
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
