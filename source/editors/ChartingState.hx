@@ -203,6 +203,8 @@ class ChartingState extends MusicBeatState
 	var text:String = "";
 	public static var vortex:Bool = false;
 	public var mouseQuant:Bool = false;
+	var postfix:String = '';
+	
 	override function create()
 	{
 		if (PlayState.SONG != null)
@@ -2958,7 +2960,7 @@ class ChartingState extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(song.toLowerCase() + "-" + CoolUtil.difficulties[PlayState.storyDifficulty], song.toLowerCase());
 			}
 		}else{
-		PlayState.SONG = Song.loadFromJson(song.toLowerCase(), song.toLowerCase());
+			PlayState.SONG = Song.loadFromJson(song.toLowerCase() + postfix, song.toLowerCase());
 		}
 		MusicBeatState.resetState();
 	}
