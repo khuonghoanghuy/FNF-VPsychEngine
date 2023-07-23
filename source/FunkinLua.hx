@@ -522,7 +522,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -575,7 +575,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -627,7 +627,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -747,7 +747,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -787,7 +787,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -832,7 +832,7 @@ class FunkinLua {
 				doPush = true;
 			}
 			else {
-				cervix = Paths.getPreloadPath(cervix);
+				cervix = SUtil.getPath() + Paths.getPreloadPath(cervix);
 				if(FileSystem.exists(cervix)) {
 					doPush = true;
 				}
@@ -2137,7 +2137,7 @@ class FunkinLua {
 			path = Paths.modsJson(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 			if(!FileSystem.exists(path))
 			#end
-				path = Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
+				path = SUtil.getPath() + Paths.json(Paths.formatToSongPath(PlayState.SONG.song) + '/' + dialogueFile);
 
 			luaTrace('startDialogue: Trying to load dialogue: ' + path);
 
@@ -2873,7 +2873,7 @@ class FunkinLua {
 			return true;
 		}
 
-		var foldersToCheck:Array<String> = [Paths.mods('shaders/')];
+		var foldersToCheck:Array<String> = [SUtil.getPath() + Paths.getPreloadPath('shaders/')];
 		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
 			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/shaders/'));
 
